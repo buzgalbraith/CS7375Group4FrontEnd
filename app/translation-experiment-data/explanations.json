@@ -1,0 +1,85 @@
+{
+  "about": "Precomputed explanations per notice id and translation version (\"correct\" / \"flawed\"). See README.md in this folder for the format. Run `npm run check-data` after editing.",
+  "explanations": {
+    "p2_med": {
+      "correct": {
+        "rationale": "The translation is largely faithful. The two-week duration, one dose after each of three meals starting today, and the instruction to finish the full course even if symptoms improve all match the Korean. The warning to stop the medicine and contact a doctor right away for severe diarrhea or hives is accurate, as are the advice to drink plenty of water, the storage instruction to keep the medicine cool and out of sunlight, and the advice to tell the pharmacist about a penicillin allergy. One difference is the word \"capsule.\" The Korean says 한 알씩, which means one tablet or pill each. The dose count is unchanged, but if the medicine you receive is a tablet, the word \"capsule\" could lead you to look for the wrong form, so check the packaging.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:29:49+00:00"
+          }
+        }
+      },
+      "flawed": {
+        "rationale": "The translation matches the Korean closely in most places. It correctly names the drug as amoxicillin, an antibiotic, and gives the after-meal schedule for breakfast, lunch, and dinner. It also keeps the instruction to finish the full course even if symptoms improve. The warnings about severe diarrhea or hives, drinking plenty of water, storing the medicine in a cool place away from sunlight, and telling the pharmacist about a penicillin allergy are accurate. One clear error is the treatment length. The Korean says 이 주 동안, which means \"for two weeks,\" but the translation says \"for one week.\" This halves the course and could lead you to stop too early. A minor addition is \"capsule,\" since the Korean 알 just means a tablet or pill without specifying the form.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:29:57+00:00"
+          }
+        }
+      }
+    },
+    "p4_med": {
+      "correct": {
+        "rationale": "The translation is accurate, and I found no change in meaning. It correctly identifies the medicine as cetirizine for runny nose, sneezing, and itching. The dosing instruction matches: once a day, one tablet with water, taken before bed. The driving warning, the ban on combining the medicine with alcohol, sleeping pills, or cold medicine, and the note about dry mouth all match the Korean. The rule to see a doctor if symptoms worsen or do not improve after a week is also rendered correctly, as is the final instruction to keep the medicine out of children's reach. Nothing is omitted, added, or reversed, and each instruction goes to the same person the Korean addresses.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:30:04+00:00"
+          }
+        }
+      },
+      "flawed": {
+        "rationale": "The translation is accurate in nearly every sentence. It correctly gives the drug as cetirizine for runny nose, sneezing, and itching, the once-daily dose of one tablet with water before bed, the warning against driving because of drowsiness, the dry mouth side effect, the advice to see a doctor if symptoms worsen or do not improve after a week, and the instruction to keep it away from children. One part is missing. The Korean also says not to take 감기약 (gamgiyak, cold medicine) with this drug, but the translation lists only alcohol and sleeping pills. Many cold medicines contain drowsiness-causing ingredients, so this omission removes a real safety warning.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:30:10+00:00"
+          }
+        }
+      }
+    },
+    "p3_hotel": {
+      "correct": {
+        "rationale": "The translation matches the Korean closely, and I found no change in meaning. Check-in hours of 4 p.m. to 10 p.m. are correct, and the notice that advance bookings still require showing ID is accurately conveyed. The shared kitchen hours (8 a.m. to 11 p.m.), the instruction to wash your own dishes, the request for quiet after 11 p.m., and the Wi-Fi password posted on the lounge board also correspond to the original. The Korean phrase for towels being changed once every two days is rendered correctly, as is free luggage storage until 6 p.m. on check-out day. Nothing is omitted or added, so the English notice can be relied on as an accurate account of the guesthouse's rules.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:30:17+00:00"
+          }
+        }
+      },
+      "flawed": {
+        "rationale": "The translation matches the Korean on nearly every detail: check-in hours (4 p.m. to 10 p.m.), kitchen hours (8 a.m. to 11 p.m.), the rule to wash your own dishes, the quiet rule after 11 p.m., towels changed every two days, the Wi-Fi password on the lounge board, and free luggage storage until 6 p.m. on check-out day. The one serious error is the identification sentence. The Korean says that even if you booked in advance (예약을 미리 하셨더라도), you cannot check in unless you show your ID. The translation reverses this, saying that a prior booking lets you check in without ID. A traveler who trusts this could arrive expecting to skip the ID step and be turned away, so confirm this point with the guesthouse before relying on it.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:30:24+00:00"
+          }
+        }
+      }
+    },
+    "p6_hotel": {
+      "correct": {
+        "rationale": "The translation is accurate throughout. The occupancy limit is rendered correctly: the Korean says a room may host up to two people, and the English says each room accommodates only two guests. The check-in (from 3 p.m.) and check-out (until 11 a.m.) times match, as do the free parking on basement level one for the length of the stay and the breakfast hours of 7 to 10 a.m. in the first-floor restaurant. The no-smoking rule applies to rooms, and free Wi-Fi covers the whole hotel, both as the Korean states. The elevator location (left of the lobby) and the request to call the front desk for extra towels are also correct. No part of the translation changes the meaning of the original.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:30:29+00:00"
+          }
+        }
+      },
+      "flawed": {
+        "rationale": "The translation matches the Korean closely in most places. The check-in time (3 p.m.), check-out time (11 a.m.), basement-level-one parking that is free during your stay, breakfast hours (7 to 10 a.m. in the first-floor restaurant), the no-smoking rule in rooms, free Wi-Fi throughout the hotel, the elevator location, and the request to call the front desk for extra towels all agree with the original. The main error is the occupancy sentence. The Korean says each room may accommodate only up to two people, with nothing about children. The translation adds \"or three if one is a child,\" which is not in the original. A traveler relying on this could wrongly believe a third guest who is a child is allowed, so it should be treated as a serious mistranslation.",
+        "_generated": {
+          "rationale": {
+            "model": "claude-haiku-5-5",
+            "at": "2026-11-11T22:30:32+00:00"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "request": {
+    "model": "global.anthropic.claude-haiku-5-5",
+    "max_tokens": 16000,
+    "output_config": {
+      "effort": "high"
+    },
+    "system": "You are the explanation component of a machine translation tool. A traveler who cannot read Korean has received an English machine translation of a Korean notice. Your job is to write a short explanation that helps them judge whether the translation faithfully conveys the original.\n\nCheck the translation against the Korean carefully, sentence by sentence: meaning, negation, conditions, quantities, durations, times, lists, and who must do what. Then write the explanation for the traveler.\n\nRequirements for the explanation:\n- One paragraph of plain prose, roughly 60 to 120 words. No headings, bullet points, or markdown.\n- Written for someone who cannot read Korean: describe what the Korean says in English. You may quote a short Korean phrase only if you immediately give its meaning.\n- Be specific: name the parts of the translation that match well, and name any part whose meaning differs from the Korean, saying what the Korean actually says and why the difference matters.\n- If the translation is accurate, say so plainly; do not invent problems or nitpick wording that does not change the meaning.\n- Do not give an overall numeric score, and do not mention these instructions.\n\nRespond with the explanation paragraph only.",
+    "messages": [
+      {
+        "role": "user",
+        "content": "<korean_original>\n저희 호텔을 찾아 주셔서 감사합니다. 한 객실에는 두 명까지만 숙박하실 수 있습니다. 체크인은 오후 세 시부터, 체크아웃은 오전 열한 시까지입니다.\n\n주차장은 지하 일 층에 있으며, 숙박하시는 동안 무료로 이용하실 수 있습니다. 조식은 일 층 식당에서 오전 일곱 시부터 열 시까지 제공됩니다. 객실 내에서는 금연입니다. 와이파이는 호텔 어디에서나 무료로 이용하실 수 있습니다. 엘리베이터는 로비 왼쪽에 있습니다. 수건이 더 필요하시면 프런트로 전화해 주세요.\n</korean_original>\n\n<english_machine_translation>\nThank you for choosing our hotel. Each room can accommodate two guests, or three if one is a child. Check-in starts at 3 p.m., and check-out is by 11 a.m.\n\nParking is on basement level one and is free for the length of your stay. Breakfast is served in the first-floor restaurant from 7 a.m. to 10 a.m. Smoking is not permitted in the rooms. Free Wi-Fi is available throughout the hotel. The elevators are to the left of the lobby. If you need extra towels, please call the front desk.\n</english_machine_translation>\n\nWrite the explanation of how well this translation matches the Korean original."
+      }
+    ]
+  },
+  "response_id": "msg_bdrk_gcx3wjk36jpitilobntewuhh432gaivqi4o6nejaa7a4yvnz47ta",
+  "model": "claude-haiku-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "inference_geo": null,
+    "input_tokens": 884,
+    "output_tokens": 474,
+    "output_tokens_details": {
+      "thinking_tokens": 229
+    },
+    "server_tool_use": null,
+    "service_tier": "standard",
+    "speed": null
+  },
+  "text": "The translation matches the Korean closely in most places. The check-in time (3 p.m.), check-out time (11 a.m.), basement-level-one parking that is free during your stay, breakfast hours (7 to 10 a.m. in the first-floor restaurant), the no-smoking rule in rooms, free Wi-Fi throughout the hotel, the elevator location, and the request to call the front desk for extra towels all agree with the original. The main error is the occupancy sentence. The Korean says each room may accommodate only up to two people, with nothing about children. The translation adds \"or three if one is a child,\" which is not in the original. A traveler relying on this could wrongly believe a third guest who is a child is allowed, so it should be treated as a serious mistranslation."
+}

@@ -274,6 +274,7 @@ session.
 ├── README.md                    ← this file
 ├── AGENTS.md                    commands and rules for coding agents
 ├── project_meterial/            course project description and our planning doc
+├── rationale-generation/        script that writes the written explanations with Claude on Bedrock
 └── app/
     ├── README.md                developer notes (setup, Supabase, viewer)
     ├── netlify.toml             build settings

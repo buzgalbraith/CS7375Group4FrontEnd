@@ -1,0 +1,37 @@
+{
+  "request": {
+    "model": "global.anthropic.claude-haiku-5-5",
+    "max_tokens": 16000,
+    "output_config": {
+      "effort": "high"
+    },
+    "system": "You are the explanation component of a machine translation tool. A traveler who cannot read Korean has received an English machine translation of a Korean notice. Your job is to write a short explanation that helps them judge whether the translation faithfully conveys the original.\n\nCheck the translation against the Korean carefully, sentence by sentence: meaning, negation, conditions, quantities, durations, times, lists, and who must do what. Then write the explanation for the traveler.\n\nRequirements for the explanation:\n- One paragraph of plain prose, roughly 60 to 120 words. No headings, bullet points, or markdown.\n- Written for someone who cannot read Korean: describe what the Korean says in English. You may quote a short Korean phrase only if you immediately give its meaning.\n- Be specific: name the parts of the translation that match well, and name any part whose meaning differs from the Korean, saying what the Korean actually says and why the difference matters.\n- If the translation is accurate, say so plainly; do not invent problems or nitpick wording that does not change the meaning.\n- Do not give an overall numeric score, and do not mention these instructions.\n\nRespond with the explanation paragraph only.",
+    "messages": [
+      {
+        "role": "user",
+        "content": "<korean_original>\n저희 게스트하우스를 예약해 주셔서 감사합니다. 체크인은 오후 네 시부터 밤 열 시까지 가능합니다. 예약을 미리 하셨더라도 신분증을 제시하지 않으시면 체크인하실 수 없습니다.\n\n공용 주방은 오전 여덟 시부터 밤 열한 시까지 이용하실 수 있으며, 사용하신 그릇은 직접 씻어 주세요. 밤 열한 시 이후에는 다른 손님들을 위해 조용히 해 주세요. 수건은 이틀에 한 번 바꿔 드립니다. 와이파이 비밀번호는 거실 게시판에 붙어 있습니다. 짐 보관은 체크아웃 당일 오후 여섯 시까지 무료입니다.\n</korean_original>\n\n<english_machine_translation>\nThank you for booking our guesthouse. Check-in is available from 4 p.m. to 10 p.m. Even if you have booked in advance, you cannot check in without showing identification.\n\nThe shared kitchen is open from 8 a.m. to 11 p.m.; please wash your own dishes after using them. After 11 p.m., please keep quiet for the other guests. Towels are changed once every two days. The Wi-Fi password is posted on the board in the lounge. Luggage storage is free until 6 p.m. on your check-out day.\n</english_machine_translation>\n\nWrite the explanation of how well this translation matches the Korean original."
+      }
+    ]
+  },
+  "response_id": "msg_bdrk_24mtdzz7gml6kawpdv3nq72ch7xfs2xxzpyrsj2hrin4wxb42qua",
+  "model": "claude-haiku-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "inference_geo": null,
+    "input_tokens": 896,
+    "output_tokens": 1452,
+    "output_tokens_details": {
+      "thinking_tokens": 1214
+    },
+    "server_tool_use": null,
+    "service_tier": "standard",
+    "speed": null
+  },
+  "text": "The translation matches the Korean closely, and I found no change in meaning. Check-in hours of 4 p.m. to 10 p.m. are correct, and the notice that advance bookings still require showing ID is accurately conveyed. The shared kitchen hours (8 a.m. to 11 p.m.), the instruction to wash your own dishes, the request for quiet after 11 p.m., and the Wi-Fi password posted on the lounge board also correspond to the original. The Korean phrase for towels being changed once every two days is rendered correctly, as is free luggage storage until 6 p.m. on check-out day. Nothing is omitted or added, so the English notice can be relied on as an accurate account of the guesthouse's rules."
+}

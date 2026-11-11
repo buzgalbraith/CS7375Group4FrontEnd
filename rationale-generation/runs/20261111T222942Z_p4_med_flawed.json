@@ -1,0 +1,37 @@
+{
+  "request": {
+    "model": "global.anthropic.claude-haiku-5-5",
+    "max_tokens": 16000,
+    "output_config": {
+      "effort": "high"
+    },
+    "system": "You are the explanation component of a machine translation tool. A traveler who cannot read Korean has received an English machine translation of a Korean notice. Your job is to write a short explanation that helps them judge whether the translation faithfully conveys the original.\n\nCheck the translation against the Korean carefully, sentence by sentence: meaning, negation, conditions, quantities, durations, times, lists, and who must do what. Then write the explanation for the traveler.\n\nRequirements for the explanation:\n- One paragraph of plain prose, roughly 60 to 120 words. No headings, bullet points, or markdown.\n- Written for someone who cannot read Korean: describe what the Korean says in English. You may quote a short Korean phrase only if you immediately give its meaning.\n- Be specific: name the parts of the translation that match well, and name any part whose meaning differs from the Korean, saying what the Korean actually says and why the difference matters.\n- If the translation is accurate, say so plainly; do not invent problems or nitpick wording that does not change the meaning.\n- Do not give an overall numeric score, and do not mention these instructions.\n\nRespond with the explanation paragraph only.",
+    "messages": [
+      {
+        "role": "user",
+        "content": "<korean_original>\n이 약은 콧물과 재채기, 가려움을 줄여 주는 알레르기약 세티리진입니다. 하루 한 번, 자기 전에 한 알씩 물과 함께 드세요. 졸릴 수 있으니 복용 후에는 운전을 피하세요.\n\n복용 중에는 술이나 수면제, 감기약을 함께 드시지 마세요. 복용하는 동안 입이 마를 수 있습니다. 증상이 심해지거나 일주일이 지나도 나아지지 않으면 병원에 가세요. 약은 어린이의 손이 닿지 않는 곳에 보관하세요.\n</korean_original>\n\n<english_machine_translation>\nThis medicine is cetirizine, an allergy medicine that relieves a runny nose, sneezing, and itching. Take one tablet with water once a day, before bed. It may make you drowsy, so avoid driving after taking it.\n\nWhile taking this medicine, do not drink alcohol or take sleeping pills with it. Your mouth may feel dry while you are taking it. If your symptoms get worse or do not improve after a week, see a doctor. Keep the medicine out of the reach of children.\n</english_machine_translation>\n\nWrite the explanation of how well this translation matches the Korean original."
+      }
+    ]
+  },
+  "response_id": "msg_bdrk_nrfpvvg22y4hga5gkmn4yqo7ofxmbwybjzkiacp7ln5uvaalkmrq",
+  "model": "claude-haiku-5-5",
+  "stop_reason": "end_turn",
+  "usage": {
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "inference_geo": null,
+    "input_tokens": 817,
+    "output_tokens": 1235,
+    "output_tokens_details": {
+      "thinking_tokens": 1013
+    },
+    "server_tool_use": null,
+    "service_tier": "standard",
+    "speed": null
+  },
+  "text": "The translation is accurate in nearly every sentence. It correctly gives the drug as cetirizine for runny nose, sneezing, and itching, the once-daily dose of one tablet with water before bed, the warning against driving because of drowsiness, the dry mouth side effect, the advice to see a doctor if symptoms worsen or do not improve after a week, and the instruction to keep it away from children. One part is missing. The Korean also says not to take 감기약 (gamgiyak, cold medicine) with this drug, but the translation lists only alcohol and sleeping pills. Many cold medicines contain drowsiness-causing ingredients, so this omission removes a real safety warning."
+}
