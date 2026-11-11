@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "method": "xCOMET error span detection, reference-free (QE) mode; see explanations/esa/METHOD.md",
+    "model": "Unbabel/XCOMET-XL",
+    "segment": "sentence",
+    "doc_score": "mean",
+    "severity_score": {
+      "critical": 0.1,
+      "major": 0.25,
+      "minor": 0.55
+    },
+    "notices": "/Users/ericbennett/Desktop/cs7375 project/CS7375Group4FrontEnd/app/translation-experiment-data/notices.json",
+    "generated": "2026-11-11T17:36:31",
+    "device": "mps",
+    "comet_version": "2.2.7"
+  },
+  "notices": {
+    "p2_med": {
+      "correct": {
+        "score": 99,
+        "spans": []
+      },
+      "flawed": {
+        "score": 99,
+        "spans": []
+      }
+    },
+    "p4_med": {
+      "correct": {
+        "score": 98,
+        "spans": [
+          {
+            "text": "ny",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4169,
+            "note": "Possible minor error"
+          },
+          {
+            "text": "cold",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4107,
+            "note": "Possible minor error"
+          }
+        ]
+      },
+      "flawed": {
+        "score": 98,
+        "spans": [
+          {
+            "text": "ny",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4169,
+            "note": "Possible minor error"
+          },
+          {
+            "text": "sleeping",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.3901,
+            "note": "Possible minor error"
+          }
+        ]
+      }
+    },
+    "p3_hotel": {
+      "correct": {
+        "score": 98,
+        "spans": [
+          {
+            "text": "board",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4407,
+            "note": "Possible minor error"
+          },
+          {
+            "text": "lounge",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4399,
+            "note": "Possible minor error"
+          }
+        ]
+      },
+      "flawed": {
+        "score": 97,
+        "spans": [
+          {
+            "text": "you can check",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.393,
+            "note": "Possible minor error"
+          },
+          {
+            "text": "identification",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.3891,
+            "note": "Possible minor error"
+          },
+          {
+            "text": "board",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4407,
+            "note": "Possible minor error"
+          },
+          {
+            "text": "lounge",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4399,
+            "note": "Possible minor error"
+          }
+        ]
+      }
+    },
+    "p6_hotel": {
+      "correct": {
+        "score": 99,
+        "spans": [
+          {
+            "text": "one",
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4093,
+            "note": "Possible minor error"
+          }
+        ]
+      },
+      "flawed": {
+        "score": 95,
+        "spans": [
+          {
+            "text": "three if one is a child",
+            "score": 0.25,
+            "severity": "major",
+            "confidence": 0.4492,
+            "note": "Possible major error"
+          },
+          {
+            "text": "one",
+            "occurrence": 2,
+            "score": 0.55,
+            "severity": "minor",
+            "confidence": 0.4093,
+            "note": "Possible minor error"
+          }
+        ]
+      }
+    }
+  }
+}

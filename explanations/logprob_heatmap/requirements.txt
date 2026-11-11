@@ -1,0 +1,4 @@
+# Python 3.11+. Install in a virtualenv on the GPU machine (pick the torch wheel that matches its CUDA).
+# preview.py and generate.py --dry-run need only the standard library.
+torch==2.14.1
+transformers==5.22.2
