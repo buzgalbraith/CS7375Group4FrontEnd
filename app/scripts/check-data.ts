@@ -26,7 +26,7 @@ for (const n of notices.documents) {
   const at = `notices.json ${n.id}`;
   if (ids.has(n.id)) errors.push(`${at}: duplicate id`);
   ids.add(n.id);
-  for (const f of ['korean', 'scenario', 'title_en', 'check_cost'] as const) if (!n[f]?.trim()) errors.push(`${at}: missing ${f}`);
+  for (const f of ['korean', 'scenario', 'title_en'] as const) if (!n[f]?.trim()) errors.push(`${at}: missing ${f}`);
   if (!n.english?.correct || !n.english?.flawed) errors.push(`${at}: needs english.correct and english.flawed`);
   else if (n.english.correct === n.english.flawed) errors.push(`${at}: correct and flawed translations are identical`);
   if (!['high', 'low'].includes(n.stakes)) errors.push(`${at}: stakes must be "high" or "low"`);
@@ -54,10 +54,10 @@ for (const id of MAIN_SET) if (!ids.has(id)) errors.push(`studyConfig.ts: "${id}
 const cell = (id: string, v: 'correct' | 'flawed') => {
   const e = explanations.explanations[id]?.[v];
   if (!e) return '— pending —';
-  const have = (['backtranslation', 'rationale', 'qe', 'alignment'] as const).map((k) => (e[k] ? k[0].toUpperCase() : '·')).join('');
+  const have = (['heatmap', 'rationale', 'qe', 'alignment'] as const).map((k) => (e[k] ? k[0].toUpperCase() : '·')).join('');
   return `${have}${e._mock ? ' (mock)' : ''}`;
 };
-console.log('Explanation coverage  (B=back-translation R=rationale Q=quality A=alignment)\n');
+console.log('Explanation coverage  (H=heatmap R=rationale Q=quality A=alignment)\n');
 console.log('notice      correct          flawed');
 for (const id of MAIN_SET) console.log(`${id.padEnd(11)} ${cell(id, 'correct').padEnd(16)} ${cell(id, 'flawed')}`);
 

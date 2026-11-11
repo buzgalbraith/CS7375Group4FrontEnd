@@ -1,7 +1,7 @@
 import type { ExplanationType, SessionMode, SessionRecord } from '../types';
 import { uuid } from './sync';
 
-export const EXPLANATION_TYPES: ExplanationType[] = ['backtranslation', 'rationale', 'qe', 'alignment'];
+export const EXPLANATION_TYPES: ExplanationType[] = ['heatmap', 'rationale', 'qe', 'alignment'];
 
 /** Balanced (Williams) Latin square for 4 conditions: each type appears in each position once
  *  and each type follows every other type once. */
@@ -18,7 +18,7 @@ export const LABELS = ['A', 'B', 'C', 'D', 'E', 'F'];
 /** Names participants see on the tabs, in the rankings and in the exit survey, so they can refer to each one.
  *  Kept descriptive rather than evaluative ("Quality estimate", not "Error detector"). */
 export const EXPLANATION_NAMES: Record<ExplanationType, string> = {
-  backtranslation: 'Round-trip translation',
+  heatmap: 'Confidence estimation',
   rationale: 'Rationale generation',
   qe: 'Quality estimate',
   alignment: 'Word glossary',

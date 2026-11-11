@@ -56,6 +56,9 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
   const [baseline, setBaseline] = useState<DecisionRecord | null>(null);
   const [revised, setRevised] = useState<DecisionRecord | null>(null);
   const [comprehension, setComprehension] = useState<ComprehensionRecord | null>(null);
+  const [baselineComprehension, setBaselineComprehension] = useState<ComprehensionRecord | null>(null);
+  // Shuffled once per notice, so Yes/No appear in the same order before and after the explanations.
+  const [questionOptions] = useState(() => shuffle(stimulus.keyQuestion.choices));
   const [active, setActive] = useState<number | null>(null);
   const [viewed, setViewed] = useState<Set<number>>(new Set());
   // Each ranking list starts in an independent random order so the A–D display order doesn't anchor rankings.
@@ -130,6 +133,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
       explanationOrder: order,
       baseline: baseline!,
       revised: revised!,
+      baselineComprehension: baselineComprehension!,
       comprehension: comprehension!,
       rankings: rankRecords,
       tabViewMs: { ...tabMs.current } as TrialResult['tabViewMs'],
@@ -212,20 +216,26 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
       {step === 'baseline' && (
         <DecisionForm
           key="baseline"
-          prompt="Based only on the translation, would you rely on it, or get it checked?"
-          checkCost={stimulus.checkCost}
+          prompt="How confident are you?"
+          ready={baselineComprehension !== null}
           onSubmit={(r) => {
             setBaseline(r);
             setStep('reveal');
           }}
-        />
+        >
+          <ComprehensionQuestion
+            question={stimulus.keyQuestion}
+            options={questionOptions}
+            name="comprehension-baseline"
+            onChange={setBaselineComprehension}
+          />
+        </DecisionForm>
       )}
 
       {step === 'reveal' && (
         <DecisionForm
           key="revised"
-          prompt="Now that you have seen the explanations, would you rely on this translation, or get it checked?"
-          checkCost={stimulus.checkCost}
+          prompt="Now that you have seen the explanations, how confident are you?"
           disabled={!allViewed}
           disabledReason={`Please open every explanation first (${viewed.size}/${order.length} viewed).`}
           onSubmit={(r) => {
@@ -238,6 +248,8 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
       {step === 'question' && (
         <ComprehensionQuestion
           question={stimulus.keyQuestion}
+          options={questionOptions}
+          name="comprehension"
           onSubmit={(r) => {
             setComprehension(r);
             setStep('rank');

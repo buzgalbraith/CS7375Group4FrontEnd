@@ -6,7 +6,7 @@
  * Spans in explanations.json are written as exact phrases copied from the text ("ko" / "en"), not
  * offsets, so they are easy for people and agents to author. They are resolved to token ranges here.
  */
-import type { AlignLink, KeyQuestion, QESpan, Stimulus, StimulusExplanations, TokenRange, TranslationVersion } from '../types';
+import type { AlignLink, HeatWord, KeyQuestion, QESpan, Stimulus, StimulusExplanations, TokenRange, TranslationVersion } from '../types';
 
 // ---------- Raw file formats (see translation-experiment-data/README.md) ----------
 
@@ -21,7 +21,7 @@ export interface RawNotice {
   english: Record<TranslationVersion, string>;
   error: { type: string; korean_span: string; correct_span: string; flawed_span: string };
   scenario: string;
-  /** What getting the translation checked would cost; shown next to the "Get it checked" option. */
+  /** What getting the translation checked would cost (optional; not currently shown to participants). */
   check_cost?: string;
   key_question: {
     question: string;
@@ -46,7 +46,8 @@ interface RawPhrase {
 
 export interface RawExplanationSet {
   _mock?: boolean;
-  backtranslation?: string;
+  /** Per-word scores (0–1, lower = less expected given the Korean); words not listed are unshaded. */
+  heatmap?: { words: (RawPhrase & { score: number })[] };
   rationale?: string;
   qe?: { score: number; spans: (RawPhrase & { score: number; note?: string })[] };
   alignment?: { ko: string; en: string; ko_occurrence?: number; en_occurrence?: number }[];
@@ -111,7 +112,7 @@ function yesNo(answer: string): 'Yes' | 'No' | null {
   return m ? (m[1].toLowerCase() === 'yes' ? 'Yes' : 'No') : null;
 }
 
-export const PENDING: StimulusExplanations = { backtranslation: null, rationale: null, qe: null, alignment: null };
+export const PENDING: StimulusExplanations = { heatmap: null, rationale: null, qe: null, alignment: null };
 
 export interface BuildResult {
   stimulus: Stimulus;
@@ -133,7 +134,17 @@ export function buildStimulus(
 
   const ex: StimulusExplanations = { ...PENDING };
   if (raw) {
-    ex.backtranslation = raw.backtranslation ?? null;
+    if (raw.heatmap) {
+      const words: HeatWord[] = [];
+      for (const w of raw.heatmap.words) {
+        try {
+          words.push({ tgt: phraseToRange(tgt, english, w.text, w.occurrence), score: w.score });
+        } catch (e) {
+          problems.push(`${where} heatmap: ${(e as Error).message}`);
+        }
+      }
+      ex.heatmap = { words };
+    }
     ex.rationale = raw.rationale ?? null;
     if (raw.qe) {
       const spans: QESpan[] = [];

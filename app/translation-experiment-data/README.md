@@ -44,7 +44,7 @@ Which notices are used (and in what order) is set in [`../src/data/studyConfig.t
         "flawed_span": "…"                  // must appear in english.flawed
       },
       "scenario": "…",                      // shown to the participant as "Your situation"
-      "check_cost": "Getting it checked means …",  // shown under the "Get it checked" option (required)
+      "check_cost": "Getting it checked means …",  // optional; not currently shown to participants
       "key_question": {
         "question": "…",                    // a yes/no question, asked after the explanations
         "answer": "Yes. …",                 // must start with "Yes" or "No": the correct answer
@@ -60,9 +60,9 @@ the first word of `answer` to know which of Yes/No reflects the true meaning of 
 of `answer_if_trusting_flawed` for the flawed reading; they must be opposites. The rest of both strings is
 researcher notes and isn't shown.
 
-**Decision.** Before and after the explanations, participants choose *Rely on this translation* or *Get it
-checked*, with `check_cost` shown under the second option so checking isn't free. These are stored as
-`accept` / `reject`.
+**Decision.** Before and after the explanations, participants answer *"How confident are you?"* on a 6-point
+scale from *Get it checked* to *Rely on the translation*; stored as `scale` (1–6) with a derived `accept` /
+`reject`. `check_cost` is kept in the data but isn't currently shown.
 
 ---
 
@@ -78,7 +78,11 @@ translation the participant actually sees.
     "p2_med": {
       "flawed": {
         "_mock": true,                      // optional; marks hand-written placeholder content
-        "backtranslation": "…",             // plain text (blank lines = paragraphs)
+        "heatmap": {                        // "Confidence estimation" heatmap: one item per English word
+          "words": [
+            { "text": "week.", "score": 0.03 }  // 0–1, lower = less expected; < 0.1 very, < 0.5 somewhat
+          ]                                     // unexpected (shaded); "occurrence" if the text repeats
+        },
         "rationale": "…",                   // plain text
         "qe": {
           "score": 80,                      // overall estimated quality, 0–100
@@ -97,7 +101,7 @@ translation the participant actually sees.
 }
 ```
 
-**Phrases, not offsets.** `qe.spans[].text`, `alignment[].ko` and `alignment[].en` are exact substrings
+**Phrases, not offsets.** `qe.spans[].text`, `heatmap.words[].text`, `alignment[].ko` and `alignment[].en` are exact substrings
 copied from `korean` / `english.<version>` in notices.json. The app highlights every word the phrase
 touches. If a phrase occurs more than once, add a 1-based occurrence number: `"occurrence"` for qe spans,
 `"ko_occurrence"` / `"en_occurrence"` for alignment. An alignment link's English side must be one

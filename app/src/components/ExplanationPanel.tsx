@@ -1,12 +1,11 @@
 import type { ExplanationType, Stimulus } from '../types';
 import { EXPLANATION_NAMES } from '../lib/session';
-import { wordDiff } from '../lib/diff';
-import { qeLevel } from './DocumentPane';
+import { heatLevel, qeLevel } from './DocumentPane';
 
 /** Shown only in the tutorial, to teach how to read each format. Trials show no hints. */
 const TUTORIAL_HINTS: Record<ExplanationType, string> = {
-  backtranslation:
-    'This shows the translation after being translated into Korean and back into English by a second system. Words that differ from the translation are marked. Large differences can signal a problem.',
+  heatmap:
+    'A translation model read the Korean and the English translation, and the English words it found unexpected are shaded red. Darker red means more unexpected. Hover over shaded words to see details.',
   rationale: 'This is a written explanation, produced by an AI model, of how well the translation matches the original.',
   qe: 'Parts of the translation are colored by how likely they are to contain an error. Hover over colored text to see details.',
   alignment:
@@ -21,7 +20,6 @@ interface Props {
 
 export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
   const ex = stimulus.explanations;
-  const target = stimulus.targetTokens.join(' ');
 
   if (ex[type] === null)
     return (
@@ -34,20 +32,20 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
     <div className="explanation">
       {tutorial && <p className="hint">💡 {TUTORIAL_HINTS[type]}</p>}
 
-      {type === 'backtranslation' && (
+      {type === 'heatmap' && (
         <div>
-          <h4>{EXPLANATION_NAMES.backtranslation}</h4>
-          <p className="doc-text">
-            {wordDiff(target, ex.backtranslation!).map((p, i) =>
-              p.kind === 'removed' ? null : (
-                <span key={i} className={p.kind === 'added' ? 'diff-added' : undefined}>
-                  {p.text}{' '}
-                </span>
-              ),
-            )}
+          <h4>{EXPLANATION_NAMES.heatmap}</h4>
+          <p>
+            Words in the translation above are shaded by how unexpected a translation model found them, given the
+            Korean original.
           </p>
           <p className="legend">
-            <span className="diff-added">highlighted</span> = wording that differs from the translation above
+            <span className="tok heat-strong">very unexpected</span>{' '}
+            <span className="tok heat-weak">somewhat unexpected</span> · unshaded = expected
+          </p>
+          <p className="muted small">
+            {ex.heatmap!.words.filter((w) => heatLevel(w.score)).length} of {stimulus.targetTokens.length} words
+            shaded.
           </p>
         </div>
       )}

@@ -1,4 +1,4 @@
-export type ExplanationType = 'backtranslation' | 'rationale' | 'qe' | 'alignment';
+export type ExplanationType = 'heatmap' | 'rationale' | 'qe' | 'alignment';
 
 /** Half-open token range [start, end). */
 export type TokenRange = [number, number];
@@ -8,6 +8,13 @@ export interface QESpan {
   /** 0 = very likely an error, 1 = very likely fine. */
   score: number;
   note?: string;
+}
+
+/** One English word in the Confidence estimation heatmap. */
+export interface HeatWord {
+  tgt: TokenRange;
+  /** 0–1: how expected the word is given the Korean (lower = less expected). */
+  score: number;
 }
 
 export interface AlignLink {
@@ -27,7 +34,7 @@ export type TranslationVersion = 'correct' | 'flawed';
 
 /** `null` = not produced yet (shown as "pending"). */
 export interface StimulusExplanations {
-  backtranslation: string | null;
+  heatmap: { words: HeatWord[] } | null;
   rationale: string | null;
   qe: { score: number; spans: QESpan[] } | null;
   alignment: AlignLink[] | null;
@@ -50,7 +57,7 @@ export interface Stimulus {
   title: string;
   /** The situation the participant imagines being in. */
   scenario: string;
-  /** What getting the translation checked would cost in this situation (shown next to "Get it checked"). */
+  /** What getting the translation checked would cost in this situation (in notices.json; not currently shown). */
   checkCost?: string;
   sourceTokens: string[];
   /** Token indices that start a new paragraph. */
@@ -73,7 +80,10 @@ export type Decision = 'accept' | 'reject';
 
 export interface DecisionRecord {
   decision: Decision;
-  confidence: number; // 1-7
+  /** How far toward that end of the scale: 1 (next to the middle) to 3 (the end). */
+  confidence: number;
+  /** The raw answer on the 6-point scale: 1–3 = get it checked, 4–6 = rely on the translation. */
+  scale: number;
   at: number;
 }
 
@@ -122,6 +132,9 @@ export interface TrialResult {
   explanationOrder: ExplanationType[];
   baseline: DecisionRecord;
   revised: DecisionRecord;
+  /** The key question asked on the first-impression step, before any explanations. */
+  baselineComprehension: ComprehensionRecord;
+  /** The same question after the explanations. */
   comprehension: ComprehensionRecord;
   rankings: Record<string, RankingRecord>;
   tabViewMs: Record<ExplanationType, number>;

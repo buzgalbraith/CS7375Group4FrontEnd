@@ -89,7 +89,14 @@ select
   (e.payload->'comprehension'->>'isRight')::boolean      as comprehension_right,
   -- added with the image-first layout (null for earlier sessions)
   (e.payload->>'hints')::boolean                         as hints,               -- true on the session's first (hinted) notice
-  jsonb_array_length(e.payload->'transcriptionOpens')    as transcription_opens  -- clicks on "Show transcription"
+  jsonb_array_length(e.payload->'transcriptionOpens')    as transcription_opens, -- clicks on "Show transcription"
+  -- the key question also asked before the explanations (null for earlier sessions)
+  e.payload->'baselineComprehension'->>'answerKey'       as baseline_comprehension_answer, -- 'correct' | 'flawed' | 'unsure'
+  (e.payload->'baselineComprehension'->>'isRight')::boolean as baseline_comprehension_right,
+  -- single 6-point scale (1-3 get it checked, 4-6 rely); decision/confidence above are derived from it, and
+  -- confidence is then 1-3 (distance toward that end) rather than the earlier 1-7 rating. Null for earlier sessions.
+  (e.payload->'baseline'->>'scale')::int                 as baseline_scale,
+  (e.payload->'revised'->>'scale')::int                  as revised_scale
 from public.study_events e
 left join public.study_events s on s.session_id = e.session_id and s.kind = 'session_start'
 where e.kind = 'trial';

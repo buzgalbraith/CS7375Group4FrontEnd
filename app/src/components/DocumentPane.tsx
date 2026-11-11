@@ -12,6 +12,13 @@ interface Props {
   onShowTranscription?: () => void;
 }
 
+/** Heatmap shading. Starting cut-offs from explanations/logprob_heatmap/METHOD.md; fixed before showing anyone. */
+export function heatLevel(score: number): 'strong' | 'weak' | null {
+  if (score < 0.1) return 'strong';
+  if (score < 0.5) return 'weak';
+  return null;
+}
+
 export function qeLevel(score: number): 'bad' | 'warn' | 'ok' {
   if (score < 0.4) return 'bad';
   if (score < 0.7) return 'warn';
@@ -29,11 +36,12 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
   // Without an image, the transcription is all there is, so it's always shown.
   const image = stimulus.original?.kind === 'image' ? stimulus.original.src : undefined;
   const [showTranscript, setShowTranscript] = useState(!stimulus.original);
-  const { alignment, qe } = stimulus.explanations;
+  const { alignment, qe, heatmap } = stimulus.explanations;
   const links = useMemo(() => alignment ?? [], [alignment]);
   // Overlays only apply once that explanation exists (null = still pending).
   const showAlign = overlay === 'alignment' && alignment !== null;
   const showQE = overlay === 'qe' && qe !== null;
+  const showHeat = overlay === 'heatmap' && heatmap !== null;
   const selection = showAlign ? pinned ?? hovered ?? focused : null;
   const selectedLinks = useMemo(() => matchingLinks(links, selection), [links, selection]);
   const cancelHoverClose = useCallback(() => {
@@ -188,13 +196,20 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
             const span = showQE ? qe!.spans.find((s) => containsToken(i, s.tgt)) : undefined;
             const cls = ['tok'];
             if (span) cls.push(`qe-${qeLevel(span.score)}`);
+            const heat = showHeat ? heatmap!.words.find((w) => containsToken(i, w.tgt)) : undefined;
+            const heatCls = heat ? heatLevel(heat.score) : null;
+            if (heatCls) cls.push(`heat-${heatCls}`);
             if (showAlign) {
               if (isHot('tgt', i)) cls.push('hot');
               if (!aligned.has(i)) cls.push('unaligned');
             }
             const title = span
               ? `Estimated quality: ${Math.round(span.score * 100)}/100${span.note ? ` — ${span.note}` : ''}`
-              : undefined;
+              : heatCls === 'strong'
+                ? 'Very unexpected given the Korean original'
+                : heatCls === 'weak'
+                  ? 'Somewhat unexpected given the Korean original'
+                  : undefined;
             return (
               <Fragment key={i}>
                 {tgtBreaks.has(i) && <span className="para-break" />}

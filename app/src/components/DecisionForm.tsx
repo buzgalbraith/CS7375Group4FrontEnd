@@ -1,57 +1,68 @@
-import { useState } from 'react';
-import type { Decision, DecisionRecord } from '../types';
+import { useState, type ReactNode } from 'react';
+import type { DecisionRecord } from '../types';
 
 interface Props {
   prompt: string;
-  /** Shown under "Get it checked" so the participant weighs what checking would cost. */
-  checkCost?: string;
   disabled?: boolean;
   disabledReason?: string;
   onSubmit: (r: DecisionRecord) => void;
+  /** Extra questions shown above the scale, submitted with the same Continue button. */
+  children?: ReactNode;
+  /** False while those extra questions are unanswered. */
+  ready?: boolean;
 }
 
-const CONF_LABELS = ['1 Not at all', '2', '3', '4', '5', '6', '7 Completely'];
+/** Even number of points, so there is no neutral middle: 1–3 = get it checked, 4–6 = rely on the translation. */
+export const DECISION_POINTS = 6;
 
-export function DecisionForm({ prompt, checkCost, disabled, disabledReason, onSubmit }: Props) {
-  const [decision, setDecision] = useState<Decision | null>(null);
-  const [confidence, setConfidence] = useState<number | null>(null);
+/** One scale combines the decision and its confidence. */
+export function toDecision(scale: number): DecisionRecord {
+  const half = DECISION_POINTS / 2;
+  const rely = scale > half;
+  return {
+    decision: rely ? 'accept' : 'reject',
+    // How far toward that end: 1 = next to the middle, 3 = the end of the scale.
+    confidence: rely ? scale - half : half + 1 - scale,
+    scale,
+    at: Date.now(),
+  };
+}
+
+export function DecisionForm({ prompt, disabled, disabledReason, onSubmit, children, ready = true }: Props) {
+  const [scale, setScale] = useState<number | null>(null);
+  const points = Array.from({ length: DECISION_POINTS }, (_, i) => i + 1);
 
   return (
     <div className="card decision">
+      {children}
       <p className="q">{prompt}</p>
-      <div className="choice-row">
-        {(['accept', 'reject'] as Decision[]).map((d) => (
-          <button
-            key={d}
-            className={`choice ${decision === d ? 'selected' : ''}`}
-            onClick={() => setDecision(d)}
-            disabled={disabled}
-          >
-            <span className="choice-label">{d === 'accept' ? 'Rely on this translation' : 'Get it checked'}</span>
-            {d === 'reject' && checkCost && <span className="choice-note">{checkCost}</span>}
-          </button>
-        ))}
-      </div>
-      <p className="q small">How confident are you in this decision?</p>
-      <div className="likert">
-        {CONF_LABELS.map((label, i) => (
-          <label key={i} className={confidence === i + 1 ? 'selected' : ''}>
+      <div className="decision-scale" role="radiogroup" aria-label={prompt}>
+        {points.map((n) => (
+          <label key={n} className={`decision-point ${scale === n ? 'selected' : ''} ${n > DECISION_POINTS / 2 ? 'rely' : 'check'}`}>
             <input
               type="radio"
-              name="confidence"
-              checked={confidence === i + 1}
-              onChange={() => setConfidence(i + 1)}
+              name="decision-scale"
+              checked={scale === n}
+              onChange={() => setScale(n)}
               disabled={disabled}
+              aria-label={`${n} of ${DECISION_POINTS}${n === 1 ? ', get it checked' : n === DECISION_POINTS ? ', rely on the translation' : ''}`}
             />
-            {label}
           </label>
         ))}
+      </div>
+      <div className="decision-anchors">
+        <div>
+          <strong>Get it checked</strong>
+        </div>
+        <div className="right">
+          <strong>Rely on the translation</strong>
+        </div>
       </div>
       {disabled && disabledReason && <p className="muted small">{disabledReason}</p>}
       <button
         className="primary"
-        disabled={disabled || !decision || !confidence}
-        onClick={() => onSubmit({ decision: decision!, confidence: confidence!, at: Date.now() })}
+        disabled={disabled || scale === null || !ready}
+        onClick={() => onSubmit(toDecision(scale!))}
       >
         Continue
       </button>

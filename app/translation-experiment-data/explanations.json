@@ -8,7 +8,444 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:29:49+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 99,
+          "spans": []
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "This",
+              "score": 1.0
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "amoxicillin,",
+              "score": 1.0
+            },
+            {
+              "text": "an",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "antibiotic.",
+              "score": 1.0
+            },
+            {
+              "text": "Starting",
+              "score": 1.0
+            },
+            {
+              "text": "today,",
+              "score": 1.0
+            },
+            {
+              "text": "take",
+              "score": 1.0
+            },
+            {
+              "text": "one",
+              "score": 1.0
+            },
+            {
+              "text": "capsule",
+              "score": 0.0
+            },
+            {
+              "text": "after",
+              "score": 1.0
+            },
+            {
+              "text": "breakfast,",
+              "score": 1.0
+            },
+            {
+              "text": "lunch,",
+              "score": 1.0
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "dinner",
+              "score": 1.0
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "two",
+              "score": 0.0143
+            },
+            {
+              "text": "weeks.",
+              "score": 1.0
+            },
+            {
+              "text": "Even",
+              "score": 1.0
+            },
+            {
+              "text": "if",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "your",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "symptoms",
+              "score": 1.0
+            },
+            {
+              "text": "improve,",
+              "score": 1.0
+            },
+            {
+              "text": "keep",
+              "score": 0.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "it",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "without",
+              "score": 1.0
+            },
+            {
+              "text": "missing",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 0.0672,
+              "occurrence": 13
+            },
+            {
+              "text": "dose",
+              "score": 1.0
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "full",
+              "score": 0.0684
+            },
+            {
+              "text": "period.",
+              "score": 0.0424
+            },
+            {
+              "text": "If",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "develop",
+              "score": 0.0002
+            },
+            {
+              "text": "severe",
+              "score": 1.0
+            },
+            {
+              "text": "diarrhea",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "hives,",
+              "score": 1.0
+            },
+            {
+              "text": "stop",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "it",
+              "score": 0.0011,
+              "occurrence": 3
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "contact",
+              "score": 1.0
+            },
+            {
+              "text": "your",
+              "score": 0.0022,
+              "occurrence": 2
+            },
+            {
+              "text": "doctor",
+              "score": 0.9824
+            },
+            {
+              "text": "right",
+              "score": 1.0
+            },
+            {
+              "text": "away.",
+              "score": 1.0
+            },
+            {
+              "text": "Drink",
+              "score": 1.0
+            },
+            {
+              "text": "plenty",
+              "score": 1.0
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "water",
+              "score": 1.0
+            },
+            {
+              "text": "while",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 0.7419,
+              "occurrence": 4
+            },
+            {
+              "text": "are",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "medicine.",
+              "score": 1.0
+            },
+            {
+              "text": "Store",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 12
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 24
+            },
+            {
+              "text": "cool",
+              "score": 1.0
+            },
+            {
+              "text": "place",
+              "score": 1.0
+            },
+            {
+              "text": "out",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "direct",
+              "score": 1.0
+            },
+            {
+              "text": "sunlight.",
+              "score": 1.0
+            },
+            {
+              "text": "Amoxicillin",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 26
+            },
+            {
+              "text": "type",
+              "score": 0.0471
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "penicillin,",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "so",
+              "score": 1.0
+            },
+            {
+              "text": "if",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "are",
+              "score": 0.0013,
+              "occurrence": 2
+            },
+            {
+              "text": "allergic",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "penicillin,",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "be",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "sure",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 7
+            },
+            {
+              "text": "tell",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "pharmacist",
+              "score": 1.0
+            },
+            {
+              "text": "before",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "it.",
+              "score": 1.0
+            }
+          ]
         }
       },
       "flawed": {
@@ -17,7 +454,446 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:29:57+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 99,
+          "spans": []
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "This",
+              "score": 1.0
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "amoxicillin,",
+              "score": 1.0
+            },
+            {
+              "text": "an",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "antibiotic.",
+              "score": 1.0
+            },
+            {
+              "text": "Starting",
+              "score": 1.0
+            },
+            {
+              "text": "today,",
+              "score": 1.0
+            },
+            {
+              "text": "take",
+              "score": 1.0
+            },
+            {
+              "text": "one",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "capsule",
+              "score": 0.0
+            },
+            {
+              "text": "after",
+              "score": 1.0
+            },
+            {
+              "text": "breakfast,",
+              "score": 1.0
+            },
+            {
+              "text": "lunch,",
+              "score": 1.0
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "dinner",
+              "score": 1.0
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "one",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "week.",
+              "score": 1.0
+            },
+            {
+              "text": "Even",
+              "score": 1.0
+            },
+            {
+              "text": "if",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "your",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "symptoms",
+              "score": 1.0
+            },
+            {
+              "text": "improve,",
+              "score": 1.0
+            },
+            {
+              "text": "keep",
+              "score": 0.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "it",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "without",
+              "score": 1.0
+            },
+            {
+              "text": "missing",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 0.0526,
+              "occurrence": 13
+            },
+            {
+              "text": "dose",
+              "score": 1.0
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "full",
+              "score": 0.0425
+            },
+            {
+              "text": "period.",
+              "score": 0.0443
+            },
+            {
+              "text": "If",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "develop",
+              "score": 0.0001
+            },
+            {
+              "text": "severe",
+              "score": 1.0
+            },
+            {
+              "text": "diarrhea",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "hives,",
+              "score": 1.0
+            },
+            {
+              "text": "stop",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "it",
+              "score": 0.0014,
+              "occurrence": 3
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "contact",
+              "score": 1.0
+            },
+            {
+              "text": "your",
+              "score": 0.0018,
+              "occurrence": 2
+            },
+            {
+              "text": "doctor",
+              "score": 0.9832
+            },
+            {
+              "text": "right",
+              "score": 1.0
+            },
+            {
+              "text": "away.",
+              "score": 1.0
+            },
+            {
+              "text": "Drink",
+              "score": 1.0
+            },
+            {
+              "text": "plenty",
+              "score": 1.0
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "water",
+              "score": 1.0
+            },
+            {
+              "text": "while",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 0.5893,
+              "occurrence": 4
+            },
+            {
+              "text": "are",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "medicine.",
+              "score": 1.0
+            },
+            {
+              "text": "Store",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 12
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 24
+            },
+            {
+              "text": "cool",
+              "score": 1.0
+            },
+            {
+              "text": "place",
+              "score": 1.0
+            },
+            {
+              "text": "out",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "direct",
+              "score": 1.0
+            },
+            {
+              "text": "sunlight.",
+              "score": 1.0
+            },
+            {
+              "text": "Amoxicillin",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 26
+            },
+            {
+              "text": "type",
+              "score": 0.0517
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "penicillin,",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "so",
+              "score": 1.0
+            },
+            {
+              "text": "if",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "are",
+              "score": 0.0014,
+              "occurrence": 2
+            },
+            {
+              "text": "allergic",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "penicillin,",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "be",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "sure",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 7
+            },
+            {
+              "text": "tell",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "pharmacist",
+              "score": 1.0
+            },
+            {
+              "text": "before",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "it.",
+              "score": 1.0
+            }
+          ]
         }
       }
     },
@@ -28,7 +904,420 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:30:04+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 98,
+          "spans": [
+            {
+              "text": "ny",
+              "score": 0.55,
+              "note": "Possible minor error"
+            },
+            {
+              "text": "cold",
+              "score": 0.55,
+              "note": "Possible minor error"
+            }
+          ]
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "This",
+              "score": 1.0
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "cetirizine,",
+              "score": 1.0
+            },
+            {
+              "text": "an",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "allergy",
+              "score": 1.0
+            },
+            {
+              "text": "medicine",
+              "score": 0.0098,
+              "occurrence": 2
+            },
+            {
+              "text": "that",
+              "score": 1.0
+            },
+            {
+              "text": "relieves",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 0.0022,
+              "occurrence": 4
+            },
+            {
+              "text": "runny",
+              "score": 1.0
+            },
+            {
+              "text": "nose,",
+              "score": 1.0
+            },
+            {
+              "text": "sneezing,",
+              "score": 1.0
+            },
+            {
+              "text": "and",
+              "score": 1.0
+            },
+            {
+              "text": "itching.",
+              "score": 1.0
+            },
+            {
+              "text": "Take",
+              "score": 1.0
+            },
+            {
+              "text": "one",
+              "score": 1.0
+            },
+            {
+              "text": "tablet",
+              "score": 1.0
+            },
+            {
+              "text": "with",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "water",
+              "score": 1.0
+            },
+            {
+              "text": "once",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 9
+            },
+            {
+              "text": "day,",
+              "score": 1.0
+            },
+            {
+              "text": "before",
+              "score": 1.0
+            },
+            {
+              "text": "bed.",
+              "score": 0.0015
+            },
+            {
+              "text": "It",
+              "score": 1.0
+            },
+            {
+              "text": "may",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "make",
+              "score": 0.0005
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "drowsy,",
+              "score": 1.0
+            },
+            {
+              "text": "so",
+              "score": 1.0
+            },
+            {
+              "text": "avoid",
+              "score": 1.0
+            },
+            {
+              "text": "driving",
+              "score": 1.0
+            },
+            {
+              "text": "after",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "it.",
+              "score": 0.9991,
+              "occurrence": 1
+            },
+            {
+              "text": "While",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "this",
+              "score": 1.0
+            },
+            {
+              "text": "medicine,",
+              "score": 0.2005
+            },
+            {
+              "text": "do",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "not",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "drink",
+              "score": 0.0002
+            },
+            {
+              "text": "alcohol",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "take",
+              "score": 1.0
+            },
+            {
+              "text": "sleeping",
+              "score": 1.0
+            },
+            {
+              "text": "pills",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "cold",
+              "score": 1.0
+            },
+            {
+              "text": "medicines",
+              "score": 0.2297
+            },
+            {
+              "text": "with",
+              "score": 0.0172,
+              "occurrence": 2
+            },
+            {
+              "text": "it.",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "Your",
+              "score": 1.0
+            },
+            {
+              "text": "mouth",
+              "score": 1.0
+            },
+            {
+              "text": "may",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "feel",
+              "score": 1.0
+            },
+            {
+              "text": "dry",
+              "score": 1.0
+            },
+            {
+              "text": "while",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 0.0249,
+              "occurrence": 2
+            },
+            {
+              "text": "are",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "it.",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "If",
+              "score": 1.0
+            },
+            {
+              "text": "your",
+              "score": 1.0
+            },
+            {
+              "text": "symptoms",
+              "score": 1.0
+            },
+            {
+              "text": "get",
+              "score": 0.0028
+            },
+            {
+              "text": "worse",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "do",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "not",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "improve",
+              "score": 1.0
+            },
+            {
+              "text": "after",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 23
+            },
+            {
+              "text": "week,",
+              "score": 1.0
+            },
+            {
+              "text": "see",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 24
+            },
+            {
+              "text": "doctor.",
+              "score": 1.0
+            },
+            {
+              "text": "Keep",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "out",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "reach",
+              "score": 1.0
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "children.",
+              "score": 1.0
+            }
+          ]
         }
       },
       "flawed": {
@@ -37,7 +1326,407 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:30:10+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 98,
+          "spans": [
+            {
+              "text": "ny",
+              "score": 0.55,
+              "note": "Possible minor error"
+            },
+            {
+              "text": "sleeping",
+              "score": 0.55,
+              "note": "Possible minor error"
+            }
+          ]
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "This",
+              "score": 1.0
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "cetirizine,",
+              "score": 1.0
+            },
+            {
+              "text": "an",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "allergy",
+              "score": 1.0
+            },
+            {
+              "text": "medicine",
+              "score": 0.0098,
+              "occurrence": 2
+            },
+            {
+              "text": "that",
+              "score": 1.0
+            },
+            {
+              "text": "relieves",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 0.0022,
+              "occurrence": 4
+            },
+            {
+              "text": "runny",
+              "score": 1.0
+            },
+            {
+              "text": "nose,",
+              "score": 1.0
+            },
+            {
+              "text": "sneezing,",
+              "score": 1.0
+            },
+            {
+              "text": "and",
+              "score": 1.0
+            },
+            {
+              "text": "itching.",
+              "score": 1.0
+            },
+            {
+              "text": "Take",
+              "score": 1.0
+            },
+            {
+              "text": "one",
+              "score": 1.0
+            },
+            {
+              "text": "tablet",
+              "score": 1.0
+            },
+            {
+              "text": "with",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "water",
+              "score": 1.0
+            },
+            {
+              "text": "once",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 9
+            },
+            {
+              "text": "day,",
+              "score": 1.0
+            },
+            {
+              "text": "before",
+              "score": 1.0
+            },
+            {
+              "text": "bed.",
+              "score": 0.0015
+            },
+            {
+              "text": "It",
+              "score": 1.0
+            },
+            {
+              "text": "may",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "make",
+              "score": 0.0005
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "drowsy,",
+              "score": 1.0
+            },
+            {
+              "text": "so",
+              "score": 1.0
+            },
+            {
+              "text": "avoid",
+              "score": 1.0
+            },
+            {
+              "text": "driving",
+              "score": 1.0
+            },
+            {
+              "text": "after",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "it.",
+              "score": 0.9991,
+              "occurrence": 1
+            },
+            {
+              "text": "While",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "this",
+              "score": 1.0
+            },
+            {
+              "text": "medicine,",
+              "score": 0.2005
+            },
+            {
+              "text": "do",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "not",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "drink",
+              "score": 0.0002
+            },
+            {
+              "text": "alcohol",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "take",
+              "score": 1.0
+            },
+            {
+              "text": "sleeping",
+              "score": 1.0
+            },
+            {
+              "text": "pills",
+              "score": 1.0
+            },
+            {
+              "text": "with",
+              "score": 0.0007,
+              "occurrence": 2
+            },
+            {
+              "text": "it.",
+              "score": 0.5651,
+              "occurrence": 2
+            },
+            {
+              "text": "Your",
+              "score": 1.0
+            },
+            {
+              "text": "mouth",
+              "score": 1.0
+            },
+            {
+              "text": "may",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "feel",
+              "score": 1.0
+            },
+            {
+              "text": "dry",
+              "score": 1.0
+            },
+            {
+              "text": "while",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 0.0849,
+              "occurrence": 2
+            },
+            {
+              "text": "are",
+              "score": 1.0
+            },
+            {
+              "text": "taking",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "it.",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "If",
+              "score": 1.0
+            },
+            {
+              "text": "your",
+              "score": 1.0
+            },
+            {
+              "text": "symptoms",
+              "score": 1.0
+            },
+            {
+              "text": "get",
+              "score": 0.0042
+            },
+            {
+              "text": "worse",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "do",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "not",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "improve",
+              "score": 1.0
+            },
+            {
+              "text": "after",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 23
+            },
+            {
+              "text": "week,",
+              "score": 1.0
+            },
+            {
+              "text": "see",
+              "score": 1.0
+            },
+            {
+              "text": "a",
+              "score": 1.0,
+              "occurrence": 24
+            },
+            {
+              "text": "doctor.",
+              "score": 1.0
+            },
+            {
+              "text": "Keep",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "medicine",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "out",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "reach",
+              "score": 1.0
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "children.",
+              "score": 1.0
+            }
+          ]
         }
       }
     },
@@ -48,7 +1737,421 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:30:17+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 98,
+          "spans": [
+            {
+              "text": "board",
+              "score": 0.55,
+              "note": "Possible minor error"
+            },
+            {
+              "text": "lounge",
+              "score": 0.55,
+              "note": "Possible minor error"
+            }
+          ]
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "Thank",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "booking",
+              "score": 1.0
+            },
+            {
+              "text": "our",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "guesthouse.",
+              "score": 1.0
+            },
+            {
+              "text": "Check-in",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "available",
+              "score": 1.0
+            },
+            {
+              "text": "from",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "4",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "10",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "Even",
+              "score": 1.0
+            },
+            {
+              "text": "if",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "have",
+              "score": 1.0
+            },
+            {
+              "text": "booked",
+              "score": 0.1512
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "advance,",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "cannot",
+              "score": 1.0
+            },
+            {
+              "text": "check",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "without",
+              "score": 1.0
+            },
+            {
+              "text": "showing",
+              "score": 0.0013
+            },
+            {
+              "text": "identification.",
+              "score": 0.6487
+            },
+            {
+              "text": "The",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "shared",
+              "score": 1.0
+            },
+            {
+              "text": "kitchen",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "open",
+              "score": 0.0003
+            },
+            {
+              "text": "from",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "8",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "11",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "p.m.;",
+              "score": 1.0
+            },
+            {
+              "text": "please",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "wash",
+              "score": 1.0
+            },
+            {
+              "text": "your",
+              "score": 0.3411,
+              "occurrence": 1
+            },
+            {
+              "text": "own",
+              "score": 1.0
+            },
+            {
+              "text": "dishes",
+              "score": 1.0
+            },
+            {
+              "text": "after",
+              "score": 1.0
+            },
+            {
+              "text": "using",
+              "score": 0.0222
+            },
+            {
+              "text": "them.",
+              "score": 1.0
+            },
+            {
+              "text": "After",
+              "score": 1.0
+            },
+            {
+              "text": "11",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "p.m.,",
+              "score": 1.0
+            },
+            {
+              "text": "please",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "keep",
+              "score": 0.8733
+            },
+            {
+              "text": "quiet",
+              "score": 1.0
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "other",
+              "score": 0.1404
+            },
+            {
+              "text": "guests.",
+              "score": 1.0
+            },
+            {
+              "text": "Towels",
+              "score": 1.0
+            },
+            {
+              "text": "are",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "changed",
+              "score": 1.0
+            },
+            {
+              "text": "once",
+              "score": 0.496
+            },
+            {
+              "text": "every",
+              "score": 1.0
+            },
+            {
+              "text": "two",
+              "score": 1.0
+            },
+            {
+              "text": "days.",
+              "score": 1.0
+            },
+            {
+              "text": "The",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "Wi-Fi",
+              "score": 1.0
+            },
+            {
+              "text": "password",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "posted",
+              "score": 1.0
+            },
+            {
+              "text": "on",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "board",
+              "score": 1.0
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 7
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "lounge.",
+              "score": 0.0
+            },
+            {
+              "text": "Luggage",
+              "score": 1.0
+            },
+            {
+              "text": "storage",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "free",
+              "score": 1.0
+            },
+            {
+              "text": "until",
+              "score": 1.0
+            },
+            {
+              "text": "6",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "on",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "your",
+              "score": 0.0585,
+              "occurrence": 2
+            },
+            {
+              "text": "check-out",
+              "score": 1.0
+            },
+            {
+              "text": "day.",
+              "score": 1.0
+            }
+          ]
         }
       },
       "flawed": {
@@ -57,7 +2160,426 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:30:24+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 97,
+          "spans": [
+            {
+              "text": "you can check",
+              "score": 0.55,
+              "note": "Possible minor error"
+            },
+            {
+              "text": "identification",
+              "score": 0.55,
+              "note": "Possible minor error"
+            },
+            {
+              "text": "board",
+              "score": 0.55,
+              "note": "Possible minor error"
+            },
+            {
+              "text": "lounge",
+              "score": 0.55,
+              "note": "Possible minor error"
+            }
+          ]
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "Thank",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "booking",
+              "score": 1.0
+            },
+            {
+              "text": "our",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "guesthouse.",
+              "score": 1.0
+            },
+            {
+              "text": "Check-in",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "available",
+              "score": 1.0
+            },
+            {
+              "text": "from",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "4",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "10",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "If",
+              "score": 0.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "have",
+              "score": 1.0
+            },
+            {
+              "text": "booked",
+              "score": 1.0
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "advance,",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "can",
+              "score": 0.0
+            },
+            {
+              "text": "check",
+              "score": 0.0,
+              "occurrence": 1
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "without",
+              "score": 0.18
+            },
+            {
+              "text": "showing",
+              "score": 1.0
+            },
+            {
+              "text": "identification.",
+              "score": 1.0
+            },
+            {
+              "text": "The",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "shared",
+              "score": 1.0
+            },
+            {
+              "text": "kitchen",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "open",
+              "score": 0.0029
+            },
+            {
+              "text": "from",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "8",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "11",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "p.m.;",
+              "score": 1.0
+            },
+            {
+              "text": "please",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "wash",
+              "score": 1.0
+            },
+            {
+              "text": "your",
+              "score": 0.3314,
+              "occurrence": 1
+            },
+            {
+              "text": "own",
+              "score": 1.0
+            },
+            {
+              "text": "dishes",
+              "score": 1.0
+            },
+            {
+              "text": "after",
+              "score": 1.0
+            },
+            {
+              "text": "using",
+              "score": 0.0602
+            },
+            {
+              "text": "them.",
+              "score": 1.0
+            },
+            {
+              "text": "After",
+              "score": 1.0
+            },
+            {
+              "text": "11",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "p.m.,",
+              "score": 1.0
+            },
+            {
+              "text": "please",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "keep",
+              "score": 0.8814
+            },
+            {
+              "text": "quiet",
+              "score": 1.0
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "other",
+              "score": 1.0
+            },
+            {
+              "text": "guests.",
+              "score": 1.0
+            },
+            {
+              "text": "Towels",
+              "score": 1.0
+            },
+            {
+              "text": "are",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "changed",
+              "score": 1.0
+            },
+            {
+              "text": "once",
+              "score": 0.469
+            },
+            {
+              "text": "every",
+              "score": 1.0
+            },
+            {
+              "text": "two",
+              "score": 1.0
+            },
+            {
+              "text": "days.",
+              "score": 1.0
+            },
+            {
+              "text": "The",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "Wi-Fi",
+              "score": 1.0
+            },
+            {
+              "text": "password",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "posted",
+              "score": 1.0
+            },
+            {
+              "text": "on",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "board",
+              "score": 1.0
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 7
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "lounge.",
+              "score": 0.0001
+            },
+            {
+              "text": "Luggage",
+              "score": 1.0
+            },
+            {
+              "text": "storage",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "free",
+              "score": 1.0
+            },
+            {
+              "text": "until",
+              "score": 1.0
+            },
+            {
+              "text": "6",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "on",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "your",
+              "score": 0.1055,
+              "occurrence": 2
+            },
+            {
+              "text": "check-out",
+              "score": 1.0
+            },
+            {
+              "text": "day.",
+              "score": 1.0
+            }
+          ]
         }
       }
     },
@@ -68,7 +2590,407 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:30:29+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 99,
+          "spans": [
+            {
+              "text": "one",
+              "score": 0.55,
+              "note": "Possible minor error"
+            }
+          ]
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "Thank",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "choosing",
+              "score": 1.0
+            },
+            {
+              "text": "our",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "hotel.",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "Each",
+              "score": 1.0
+            },
+            {
+              "text": "room",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "can",
+              "score": 1.0
+            },
+            {
+              "text": "accommodate",
+              "score": 1.0
+            },
+            {
+              "text": "only",
+              "score": 0.2156
+            },
+            {
+              "text": "two",
+              "score": 0.0617
+            },
+            {
+              "text": "guests.",
+              "score": 1.0
+            },
+            {
+              "text": "Check-in",
+              "score": 1.0
+            },
+            {
+              "text": "starts",
+              "score": 0.0743
+            },
+            {
+              "text": "at",
+              "score": 0.9681,
+              "occurrence": 2
+            },
+            {
+              "text": "3",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.,",
+              "score": 1.0
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "check-out",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "by",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "11",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "Parking",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "on",
+              "score": 0.0055,
+              "occurrence": 2
+            },
+            {
+              "text": "basement",
+              "score": 1.0
+            },
+            {
+              "text": "level",
+              "score": 1.0
+            },
+            {
+              "text": "one",
+              "score": 1.0
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "free",
+              "score": 0.044
+            },
+            {
+              "text": "for",
+              "score": 0.0768,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 0.2199,
+              "occurrence": 1
+            },
+            {
+              "text": "length",
+              "score": 0.0001
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "your",
+              "score": 1.0
+            },
+            {
+              "text": "stay.",
+              "score": 1.0
+            },
+            {
+              "text": "Breakfast",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "served",
+              "score": 1.0
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "first-floor",
+              "score": 1.0
+            },
+            {
+              "text": "restaurant",
+              "score": 1.0
+            },
+            {
+              "text": "from",
+              "score": 1.0
+            },
+            {
+              "text": "7",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "10",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "Smoking",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "not",
+              "score": 0.043
+            },
+            {
+              "text": "permitted",
+              "score": 1.0
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "rooms.",
+              "score": 1.0
+            },
+            {
+              "text": "Free",
+              "score": 1.0
+            },
+            {
+              "text": "Wi-Fi",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "available",
+              "score": 1.0
+            },
+            {
+              "text": "throughout",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "hotel.",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "The",
+              "score": 1.0
+            },
+            {
+              "text": "elevators",
+              "score": 1.0
+            },
+            {
+              "text": "are",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 0.0667,
+              "occurrence": 3
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "left",
+              "score": 1.0
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "lobby.",
+              "score": 1.0
+            },
+            {
+              "text": "If",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "need",
+              "score": 1.0
+            },
+            {
+              "text": "extra",
+              "score": 1.0
+            },
+            {
+              "text": "towels,",
+              "score": 1.0
+            },
+            {
+              "text": "please",
+              "score": 1.0
+            },
+            {
+              "text": "call",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 7
+            },
+            {
+              "text": "front",
+              "score": 1.0
+            },
+            {
+              "text": "desk.",
+              "score": 1.0
+            }
+          ]
         }
       },
       "flawed": {
@@ -77,7 +2999,442 @@
           "rationale": {
             "model": "claude-haiku-5-5",
             "at": "2026-11-11T22:30:32+00:00"
+          },
+          "qe": {
+            "method": "ESA via xCOMET (explanations/esa)",
+            "model": "Unbabel/XCOMET-XL",
+            "merged": "2026-11-11T23:09:23+00:00"
+          },
+          "heatmap": {
+            "method": "log-probability heatmap (explanations/logprob_heatmap)",
+            "model": "google/gemma-4-12B-it",
+            "score": "confidence_contrast",
+            "merged": "2026-11-11T23:09:23+00:00"
           }
+        },
+        "qe": {
+          "score": 95,
+          "spans": [
+            {
+              "text": "three if one is a child",
+              "score": 0.25,
+              "note": "Possible major error"
+            },
+            {
+              "text": "one",
+              "score": 0.55,
+              "occurrence": 2,
+              "note": "Possible minor error"
+            }
+          ]
+        },
+        "heatmap": {
+          "words": [
+            {
+              "text": "Thank",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "for",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "choosing",
+              "score": 1.0
+            },
+            {
+              "text": "our",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "hotel.",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "Each",
+              "score": 1.0
+            },
+            {
+              "text": "room",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "can",
+              "score": 1.0
+            },
+            {
+              "text": "accommodate",
+              "score": 1.0
+            },
+            {
+              "text": "two",
+              "score": 0.0
+            },
+            {
+              "text": "guests,",
+              "score": 1.0
+            },
+            {
+              "text": "or",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "three",
+              "score": 0.0
+            },
+            {
+              "text": "if",
+              "score": 0.1979
+            },
+            {
+              "text": "one",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "a",
+              "score": 0.8182,
+              "occurrence": 6
+            },
+            {
+              "text": "child.",
+              "score": 0.9974
+            },
+            {
+              "text": "Check-in",
+              "score": 1.0
+            },
+            {
+              "text": "starts",
+              "score": 0.6235
+            },
+            {
+              "text": "at",
+              "score": 0.9045,
+              "occurrence": 2
+            },
+            {
+              "text": "3",
+              "score": 1.0
+            },
+            {
+              "text": "p.m.,",
+              "score": 1.0
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "check-out",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "by",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "11",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "Parking",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "on",
+              "score": 0.0645,
+              "occurrence": 2
+            },
+            {
+              "text": "basement",
+              "score": 1.0
+            },
+            {
+              "text": "level",
+              "score": 1.0
+            },
+            {
+              "text": "one",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "and",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "free",
+              "score": 0.2621
+            },
+            {
+              "text": "for",
+              "score": 0.155,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 0.2772,
+              "occurrence": 1
+            },
+            {
+              "text": "length",
+              "score": 0.0003
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "your",
+              "score": 1.0
+            },
+            {
+              "text": "stay.",
+              "score": 1.0
+            },
+            {
+              "text": "Breakfast",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "served",
+              "score": 1.0
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "first-floor",
+              "score": 1.0
+            },
+            {
+              "text": "restaurant",
+              "score": 1.0
+            },
+            {
+              "text": "from",
+              "score": 1.0
+            },
+            {
+              "text": "7",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "to",
+              "score": 1.0,
+              "occurrence": 1
+            },
+            {
+              "text": "10",
+              "score": 1.0
+            },
+            {
+              "text": "a.m.",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "Smoking",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "not",
+              "score": 0.1596
+            },
+            {
+              "text": "permitted",
+              "score": 1.0
+            },
+            {
+              "text": "in",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "rooms.",
+              "score": 0.9297
+            },
+            {
+              "text": "Free",
+              "score": 1.0
+            },
+            {
+              "text": "Wi-Fi",
+              "score": 1.0
+            },
+            {
+              "text": "is",
+              "score": 1.0,
+              "occurrence": 7
+            },
+            {
+              "text": "available",
+              "score": 1.0
+            },
+            {
+              "text": "throughout",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 4
+            },
+            {
+              "text": "hotel.",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "The",
+              "score": 1.0
+            },
+            {
+              "text": "elevators",
+              "score": 1.0
+            },
+            {
+              "text": "are",
+              "score": 1.0
+            },
+            {
+              "text": "to",
+              "score": 0.072,
+              "occurrence": 3
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 5
+            },
+            {
+              "text": "left",
+              "score": 1.0
+            },
+            {
+              "text": "of",
+              "score": 1.0,
+              "occurrence": 2
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 6
+            },
+            {
+              "text": "lobby.",
+              "score": 1.0
+            },
+            {
+              "text": "If",
+              "score": 1.0
+            },
+            {
+              "text": "you",
+              "score": 1.0,
+              "occurrence": 3
+            },
+            {
+              "text": "need",
+              "score": 1.0
+            },
+            {
+              "text": "extra",
+              "score": 1.0
+            },
+            {
+              "text": "towels,",
+              "score": 1.0
+            },
+            {
+              "text": "please",
+              "score": 1.0
+            },
+            {
+              "text": "call",
+              "score": 1.0
+            },
+            {
+              "text": "the",
+              "score": 1.0,
+              "occurrence": 7
+            },
+            {
+              "text": "front",
+              "score": 1.0
+            },
+            {
+              "text": "desk.",
+              "score": 1.0
+            }
+          ]
         }
       }
     }
