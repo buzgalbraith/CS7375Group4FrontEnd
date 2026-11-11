@@ -23,6 +23,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
   const [focused, setFocused] = useState<WordSelection | null>(null);
   const [pinned, setPinned] = useState<WordSelection | null>(null);
   const lastHovered = useRef<WordSelection | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const matchId = useId();
   // The notice image is shown first; the Korean text is a transcription the participant can reveal.
   // Without an image, the transcription is all there is, so it's always shown.
@@ -34,13 +35,27 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
   const showAlign = overlay === 'alignment' && alignment !== null;
   const showQE = overlay === 'qe' && qe !== null;
   const selection = showAlign ? pinned ?? hovered ?? focused : null;
-  const selectedLinks = matchingLinks(links, selection);
+  const selectedLinks = useMemo(() => matchingLinks(links, selection), [links, selection]);
+  const cancelHoverClose = useCallback(() => {
+    if (closeTimer.current !== null) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  }, []);
+  const scheduleHoverClose = () => {
+    cancelHoverClose();
+    // Allow the pointer to cross the small gap between the word and its glossary.
+    closeTimer.current = setTimeout(() => {
+      setHovered(null);
+      lastHovered.current = null;
+    }, 180);
+  };
   const clearSelection = useCallback(() => {
+    cancelHoverClose();
     setHovered(null);
     setFocused(null);
     setPinned(null);
     lastHovered.current = null;
-  }, []);
+  }, [cancelHoverClose]);
+  useEffect(() => cancelHoverClose, [cancelHoverClose]);
   // A match belongs to one notice/version and one explanation; never carry it to another tab.
   useEffect(clearSelection, [stimulus, overlay, clearSelection]);
   // Hover alone doesn't focus a word, so Escape must also work when focus is outside the document.
@@ -52,6 +67,16 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
     window.addEventListener('keydown', dismiss);
     return () => window.removeEventListener('keydown', dismiss);
   }, [showAlign, clearSelection]);
+  const anchor = selection?.anchor;
+  useEffect(() => {
+    if (!anchor) return;
+    const dismissOutside = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (!anchor.contains(target) && !document.getElementById(matchId)?.contains(target)) clearSelection();
+    };
+    document.addEventListener('pointerdown', dismissOutside);
+    return () => document.removeEventListener('pointerdown', dismissOutside);
+  }, [anchor, matchId, clearSelection]);
   // Word matching works on the transcription, so opening that explanation reveals it.
   useEffect(() => {
     if (showAlign) setShowTranscript(true);
@@ -67,9 +92,10 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
     return s;
   }, [links]);
 
-  const hover = (side: 'src' | 'tgt', index: number) => {
+  const hover = (side: 'src' | 'tgt', index: number, anchor: HTMLButtonElement) => {
+    cancelHoverClose();
     if (pinned) return;
-    const next = { side, index };
+    const next = { side, index, anchor };
     const hit = matchingLinks(links, next);
     const previous = matchingLinks(links, lastHovered.current);
     const changed = hit.length !== previous.length || hit.some((l, k) => l !== previous[k]);
@@ -87,18 +113,23 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
         type="button"
         className={`${className} word-match-token`}
         aria-label={`Show ${side === 'tgt' ? 'source' : 'translation'} for “${text}”`}
-        aria-describedby={isHot(side, i) ? matchId : undefined}
+        aria-haspopup="dialog"
+        aria-expanded={selection?.side === side && selection.index === i}
+        aria-controls={selection?.side === side && selection.index === i ? matchId : undefined}
+        aria-describedby={selection?.side === side && selection.index === i ? `${matchId}-content` : undefined}
         aria-pressed={isPinned}
-        onMouseEnter={() => hover(side, i)}
-        onFocus={() => {
+        onMouseEnter={(event) => hover(side, i, event.currentTarget)}
+        onMouseLeave={scheduleHoverClose}
+        onFocus={(event) => {
+          cancelHoverClose();
           setHovered(null);
           lastHovered.current = null;
-          setFocused({ side, index: i });
+          setFocused({ side, index: i, anchor: event.currentTarget });
         }}
         onBlur={() => setFocused(null)}
-        onClick={() => {
+        onClick={(event) => {
           if (isPinned) clearSelection();
-          else setPinned({ side, index: i });
+          else setPinned({ side, index: i, anchor: event.currentTarget });
         }}
       >
         {text}
@@ -107,10 +138,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
   };
 
   return (
-    <div
-      className={`doc-pane ${showAlign ? 'word-matching' : ''}`}
-      onMouseLeave={() => { setHovered(null); lastHovered.current = null; }}
-    >
+    <div className={`doc-pane ${showAlign ? 'word-matching' : ''}`}>
       <section className="doc-col">
         <div className="doc-col-head">
           <h3>
@@ -154,7 +182,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
         <h3>
           Machine translation <span className="muted">(English)</span>
         </h3>
-        {showAlign && <p className="word-match-hint small">Hover to trace a word to the original. Click or tap to keep it selected; press Escape to clear.</p>}
+        {showAlign && <p className="word-match-hint small">Hover or focus on a word to open its glossary. Click or tap to pin it; press Escape to close.</p>}
         <p className="doc-text target" lang="en">
           {stimulus.targetTokens.map((t, i) => {
             const span = showQE ? qe!.spans.find((s) => containsToken(i, s.tgt)) : undefined;
@@ -175,7 +203,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
             );
           })}
         </p>
-        {showAlign && (
+        {showAlign && selection && (
           <SourceMatch
             id={matchId}
             stimulus={stimulus}
@@ -183,6 +211,9 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
             links={selectedLinks}
             pinned={pinned !== null}
             onClear={clearSelection}
+            onMouseEnter={cancelHoverClose}
+            onMouseLeave={scheduleHoverClose}
+            onFocus={() => { cancelHoverClose(); setPinned(selection); }}
           />
         )}
         {overlay === 'alignment' && alignment === null && (

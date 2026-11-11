@@ -10,7 +10,7 @@ const TUTORIAL_HINTS: Record<ExplanationType, string> = {
   rationale: 'This is a written explanation, produced by an AI model, of how well the translation matches the original.',
   qe: 'Parts of the translation are colored by how likely they are to contain an error. Hover over colored text to see details.',
   alignment:
-    'Hover or focus on words in either text to see the linked Korean phrase and its paragraph. Click or tap to keep a match visible. A dashed underline means no source match is available in the supplied word mappings.',
+    'Hover or focus on words in either text to open an attached glossary with the linked Korean phrase and its paragraph. Click or tap to pin it. A dashed underline means no source match is available in the supplied word mappings.',
 };
 
 interface Props {
@@ -93,8 +93,8 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
         <div>
           <h4>{EXPLANATION_NAMES.alignment}</h4>
           <p>
-            Hover or focus on a word above to highlight its matches and see its source below the translation.
-            Click or tap to keep the match visible. Use Clear selection or Escape to dismiss it.
+            Hover or focus on a word above to highlight its matches and open its glossary beside the word.
+            Click or tap to pin it. Close the glossary, press Escape, or click outside to dismiss it.
           </p>
           <p className="legend">
             <span className="tok hot">highlighted</span> = matching words ·{' '}

@@ -76,8 +76,10 @@ session or upload responses. The controls also show the baseline, missing-mappin
 
 In the study, source tracing is available **only in the Word matching explanation**, once that notice and
 translation version have `alignment` data in `translation-experiment-data/explanations.json`. Hover or
-keyboard-focus a word in either language to highlight its direct matches. The detail card below the English
-translation shows each exact linked Korean/English token span, the notice title, and the Korean paragraph
-number. Click, tap, Enter, or Space keeps a selection visible; Clear selection or Escape clears it.
+keyboard-focus a word in either language to highlight its direct matches. A glossary attached to that word
+shows each exact linked Korean/English token span, the notice title, and the Korean paragraph number.
+The glossary follows its word while scrolling and adjusts above/below it to fit the viewport. Move the
+pointer into it to read longer entries. Click, tap, Enter, or Space pins it; its close button, Escape, or
+clicking outside dismisses it. It is hidden while its word is outside the viewport.
 Unmapped words report that no supplied match is available; they are not automatically judged incorrect.
 The real study mappings are still pending. This interface does not generate or infer them.

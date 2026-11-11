@@ -66,11 +66,15 @@ button.word-match-token.hot { background: var(--hot); box-shadow: 0 1px 0 var(--
 button.word-match-token:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 button.word-match-token[aria-pressed=true] { outline: 2px solid var(--accent); outline-offset: 2px; }
 .word-match-hint { margin: 8px 0 14px; padding: 10px 12px; border-radius: 6px; background: var(--accent-soft); }
-.source-match { margin-top: 20px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); overflow-wrap: anywhere; }
-.source-match.has-selection { border-color: #a5b9f5; background: #f5f7ff; }
-.source-match-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
-.source-match-head h4 { margin: 0; }
-.source-match-head button { padding: 4px 8px; }
+.glossary-popover { position: fixed; z-index: 40; width: min(340px, calc(100vw - 24px)); filter: drop-shadow(0 8px 16px rgba(29, 35, 48, .16)); }
+.glossary-arrow { position: absolute; width: 12px; height: 12px; margin-left: -6px; background: var(--card); border: 1px solid #a5b9f5; transform: rotate(45deg); }
+.glossary-popover.below .glossary-arrow { top: -6px; border-right: 0; border-bottom: 0; }
+.glossary-popover.above .glossary-arrow { bottom: -6px; border-left: 0; border-top: 0; }
+.source-match { position: relative; padding: 16px; border: 1px solid #a5b9f5; border-radius: 10px; background: var(--card); overflow-wrap: anywhere; overflow-y: auto; overscroll-behavior: contain; }
+.source-match-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.source-match-head h4 { margin: 3px 0 0; font-size: 1.1rem; }
+.glossary-close { flex: 0 0 32px; width: 32px; height: 32px; padding: 0; font-size: 1.4rem; line-height: 1; }
+.glossary-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .source-match p { margin: 10px 0 0; }
 .source-match-document { font-size: .875rem; font-weight: 600; }
 .source-match-list { list-style: none; margin: 14px 0 0; padding: 0; }
