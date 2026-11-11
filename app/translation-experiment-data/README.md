@@ -8,6 +8,7 @@ translation-experiment-data/
 ├── notices.json        Korean notices, correct + flawed English, scenario, comprehension question  (Eric)
 ├── explanations.json   precomputed explanations per notice and translation version (optional while  (Kuan)
 │                       not yet generated: everything shows as "pending")
+├── image-boxes.json    where each Korean word sits in its image, for the Word glossary (generated; don't edit)
 └── images/             the notices as participants would see them ("View original")
 ```
 
@@ -65,6 +66,14 @@ scale from *Get it checked* to *Rely on the translation*; stored as `scale` (1�
 `reject`. `check_cost` is kept in the data but isn't currently shown.
 
 ---
+
+## image-boxes.json
+
+Generated, not hand-written: `python3 explanations/image_boxes/build_boxes.py` (macOS; Apple Vision OCR)
+reads each notice image, matches the recognized characters to the notice's `korean` text, and stores one box
+per Korean word (whitespace token, in order) per image line it spans: `[x, y, width, height]` as fractions of
+the image, origin top-left. **Re-run it after changing a notice's Korean text or image.** If the words no longer
+line up, `npm run check-data` reports it and the app falls back to showing the Korean text in the Word glossary.
 
 ## explanations.json
 

@@ -1,5 +1,8 @@
 export type ExplanationType = 'heatmap' | 'rationale' | 'qe' | 'alignment';
 
+/** [x, y, width, height] as fractions of the image size, origin top-left. */
+export type ImageBox = [number, number, number, number];
+
 /** Half-open token range [start, end). */
 export type TokenRange = [number, number];
 
@@ -62,6 +65,9 @@ export interface Stimulus {
   sourceTokens: string[];
   /** Token indices that start a new paragraph. */
   sourceBreaks: number[];
+  /** Where each source token appears in the notice image: per token, one [x, y, w, h] box (fractions of the
+   *  image, origin top-left) per image line it spans. Absent if the notice has no image boxes. */
+  sourceBoxes?: ImageBox[][];
   targetTokens: string[];
   targetBreaks: number[];
   /** Optional full original for context; the tokens above remain the source of truth for the text. */
@@ -141,9 +147,6 @@ export interface TrialResult {
   alignmentHovers: number;
   /** Each time the participant opened the original-document viewer. */
   originalViews: OriginalViewRecord[];
-  /** Step at which the participant clicked "Show transcription" each time (not counting the automatic
-   *  reveal when the word-matching explanation is opened). */
-  transcriptionOpens: TrialStep[];
   startedAt: number;
   completedAt: number;
 }

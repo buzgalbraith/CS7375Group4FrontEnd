@@ -15,12 +15,6 @@ export function matchingLinks(links: AlignLink[], selection: WordSelection | nul
   return links.filter((link) => containsToken(selection.index, link[selection.side]));
 }
 
-function paragraphLocation(breaks: number[], [start, end]: TokenRange) {
-  const first = 1 + breaks.filter((i) => i <= start).length;
-  const last = 1 + breaks.filter((i) => i < end).length;
-  return first === last ? `Paragraph ${first}` : `Paragraphs ${first}–${last}`;
-}
-
 interface Props {
   id: string;
   stimulus: Stimulus;
@@ -42,7 +36,7 @@ interface Position {
   visible: boolean;
 }
 
-/** A glossary attached to the selected word; a portal keeps it clear of document clipping. */
+/** A small popover on a selected Korean word showing its English translation; a portal keeps it clear of clipping. */
 export function SourceMatch({ id, stimulus, selection, links, pinned, onClear, onMouseEnter, onMouseLeave, onFocus }: Props) {
   const bubble = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
@@ -63,7 +57,9 @@ export function SourceMatch({ id, stimulus, selection, links, pinned, onClear, o
       const height = viewport?.height ?? window.innerHeight;
       const margin = 12;
       const gap = 10;
-      popup.style.width = `${Math.min(340, width - margin * 2)}px`;
+      // Size to the translation text, up to a readable maximum.
+      popup.style.width = 'max-content';
+      popup.style.maxWidth = `${Math.min(340, width - margin * 2)}px`;
       const popupWidth = popup.getBoundingClientRect().width;
       const naturalHeight = body.scrollHeight + 2;
       const below = Math.max(0, y + height - margin - rect.bottom - gap);
@@ -121,35 +117,20 @@ export function SourceMatch({ id, stimulus, selection, links, pinned, onClear, o
       onFocus={onFocus}
     >
       <span className="glossary-arrow" style={{ left: position?.arrow }} aria-hidden="true" />
-      <div ref={content} className="source-match" style={{ maxHeight: position?.maxHeight }}>
-        <div className="source-match-head">
-          <div>
-            <span className="source-match-label">Glossary{pinned ? ' · Pinned' : ''}</span>
-            <h4 lang={selection.side === 'src' ? 'ko' : 'en'}>{tokens[selection.index]}</h4>
-          </div>
-          <button type="button" className="glossary-close" aria-label="Close glossary" onClick={onClear}>×</button>
-        </div>
+      <div ref={content} className="source-match compact" style={{ maxHeight: position?.maxHeight }}>
+        {pinned && (
+          <button type="button" className="glossary-close" aria-label="Close" onClick={onClear}>×</button>
+        )}
         <div id={`${id}-content`} role="status" aria-live="polite" aria-atomic="true">
           {uniqueLinks.length === 0 ? (
-            <>
-              <p className="source-match-empty">No {selection.side === 'tgt' ? 'source' : 'translation'} match available for “{tokens[selection.index]}”.</p>
-              <p className="muted small">The supplied word mappings do not link this word to the other text. This alone does not mean the translation is wrong.</p>
-            </>
+            <p className="muted">No translation available</p>
           ) : (
-            <>
-              <ol className="source-match-list">
-                {uniqueLinks.map((link) => (
-                  <li key={`${link.src.join('-')}:${link.tgt.join('-')}`}>
-                    <div className="source-match-label">{stimulus.sourceLang} original · {paragraphLocation(stimulus.sourceBreaks, link.src)}</div>
-                    <blockquote lang="ko">{stimulus.sourceTokens.slice(...link.src).join(' ')}</blockquote>
-                    <div className="source-match-label">Linked English text</div>
-                    <p className="source-match-translation">{stimulus.targetTokens.slice(...link.tgt).join(' ')}</p>
-                  </li>
-                ))}
-              </ol>
-              <p className="source-match-document">{stimulus.title}</p>
-              <p className="muted small">A word match shows a correspondence, not whether the translation is correct.</p>
-            </>
+            // Just the English the word is linked to; one line per link.
+            uniqueLinks.map((link) => (
+              <p key={`${link.src.join('-')}:${link.tgt.join('-')}`} className="source-match-translation" lang="en">
+                {stimulus.targetTokens.slice(...link.tgt).join(' ')}
+              </p>
+            ))
           )}
         </div>
       </div>

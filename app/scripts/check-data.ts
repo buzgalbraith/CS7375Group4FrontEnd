@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import {
   buildStimulus,
   type RawExplanationsFile,
+  type RawImageBoxesFile,
   type RawNoticesFile,
 } from '../src/data/buildStimuli.ts';
 import { MAIN_SET, assignVersions } from '../src/data/studyConfig.ts';
@@ -20,6 +21,10 @@ const notices: RawNoticesFile = JSON.parse(readFileSync(join(dir, 'notices.json'
 const explanations: RawExplanationsFile = existsSync(join(dir, 'explanations.json'))
   ? JSON.parse(readFileSync(join(dir, 'explanations.json'), 'utf8'))
   : { explanations: {} };
+
+const imageBoxes: RawImageBoxesFile | undefined = existsSync(join(dir, 'image-boxes.json'))
+  ? JSON.parse(readFileSync(join(dir, 'image-boxes.json'), 'utf8'))
+  : undefined;
 
 const ids = new Set<string>();
 for (const n of notices.documents) {
@@ -37,9 +42,13 @@ for (const n of notices.documents) {
   }
   if (n.image && !existsSync(join(dir, n.image))) errors.push(`${at}: image not found: ${n.image}`);
   if (!n.image) warnings.push(`${at}: no image ("View full document" will be hidden)`);
+  else if (!imageBoxes?.notices[n.id])
+    warnings.push(`${at}: no entry in image-boxes.json (Word glossary falls back to the Korean text)`);
   for (const v of ['correct', 'flawed'] as const) {
-    const { problems } = buildStimulus(n, v, explanations.explanations[n.id]?.[v]);
-    errors.push(...problems.map((p) => (p.includes('key_question') ? `notices.json ${p}` : `explanations.json ${p}`)));
+    const { problems } = buildStimulus(n, v, explanations.explanations[n.id]?.[v], undefined, imageBoxes?.notices[n.id]);
+    const file = (p: string) =>
+      p.includes('key_question') ? 'notices.json' : p.includes('image') ? 'image-boxes.json' : 'explanations.json';
+    errors.push(...problems.map((p) => `${file(p)} ${p}`));
   }
 }
 

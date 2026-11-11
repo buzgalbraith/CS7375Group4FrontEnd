@@ -53,7 +53,10 @@ select
   -- 'moderated' | 'remote' | 'online' (from ?mode=; sessions before this field existed show null)
   min(payload->>'mode') filter (where kind = 'session_start') as mode,
   -- given on the welcome page; the pid is derived from it unless the link sets ?pid= (null for older sessions)
-  min(payload->>'email') filter (where kind = 'session_start') as email
+  min(payload->>'email') filter (where kind = 'session_start') as email,
+  -- answered anything but 'Not at all' to "How well can you read Korean?"; the app ends those sessions there
+  bool_or(kind = 'pre_survey' and payload->>'korean_proficiency' is distinct from 'Not at all')
+    filter (where kind = 'pre_survey')                  as screened_out
 from public.study_events
 group by session_id;
 
@@ -89,7 +92,7 @@ select
   (e.payload->'comprehension'->>'isRight')::boolean      as comprehension_right,
   -- added with the image-first layout (null for earlier sessions)
   (e.payload->>'hints')::boolean                         as hints,               -- true on the session's first (hinted) notice
-  jsonb_array_length(e.payload->'transcriptionOpens')    as transcription_opens, -- clicks on "Show transcription"
+  jsonb_array_length(e.payload->'transcriptionOpens')    as transcription_opens, -- retired: the transcription was removed (null from then on)
   -- the key question also asked before the explanations (null for earlier sessions)
   e.payload->'baselineComprehension'->>'answerKey'       as baseline_comprehension_answer, -- 'correct' | 'flawed' | 'unsure'
   (e.payload->'baselineComprehension'->>'isRight')::boolean as baseline_comprehension_right,

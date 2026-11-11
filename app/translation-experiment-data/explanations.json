@@ -1732,6 +1732,11 @@
     },
     "p3_hotel": {
       "correct": {
+        "alignment": [
+          { "ko": "체크인은", "en": "Check-in" },
+          { "ko": "신분증을", "en": "identification." },
+          { "ko": "수건은", "en": "Towels" }
+        ],
         "rationale": "The translation matches the Korean closely, and I found no change in meaning. Check-in hours of 4 p.m. to 10 p.m. are correct, and the notice that advance bookings still require showing ID is accurately conveyed. The shared kitchen hours (8 a.m. to 11 p.m.), the instruction to wash your own dishes, the request for quiet after 11 p.m., and the Wi-Fi password posted on the lounge board also correspond to the original. The Korean phrase for towels being changed once every two days is rendered correctly, as is free luggage storage until 6 p.m. on check-out day. Nothing is omitted or added, so the English notice can be relied on as an accurate account of the guesthouse's rules.",
         "_generated": {
           "rationale": {

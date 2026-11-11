@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { SessionRecord, TrialResult } from './types';
 import { stimuliForCondition } from './data/study';
-import { preSurvey, postSurveyFor } from './data/surveys';
+import { ELIGIBLE_KOREAN, preSurvey, postSurveyFor } from './data/surveys';
 import { EXPLANATION_NAMES, downloadJSON, explanationOrder, initSession, isEmail, params, saveLocal, withEmail } from './lib/session';
 import { flush, recordEvent, useSyncStatus, type EventKind } from './lib/sync';
 import { Trial } from './components/Trial';
 import { Survey } from './components/Survey';
 
-type Stage = 'welcome' | 'pre' | 'trials' | 'post' | 'done';
-const STAGES: Stage[] = ['welcome', 'pre', 'trials', 'post', 'done'];
+type Stage = 'welcome' | 'pre' | 'trials' | 'post' | 'done' | 'ineligible';
+const STAGES: Stage[] = ['welcome', 'pre', 'trials', 'post', 'done', 'ineligible'];
 
 export default function App() {
   const [session, setSession] = useState<SessionRecord>(initSession);
@@ -114,7 +114,9 @@ export default function App() {
           onSubmit={(pre) => {
             record('pre_survey', pre);
             setSession((s) => ({ ...s, pre }));
-            setStage('trials');
+            // Screening: the study is for people who can't read Korean. The pre-survey answers are kept (above);
+            // nothing else is recorded, and analysis.sessions marks the session as screened out.
+            setStage(pre.korean_proficiency === ELIGIBLE_KOREAN ? 'trials' : 'ineligible');
           }}
         />
       )}
@@ -148,6 +150,17 @@ export default function App() {
             setStage('done');
           }}
         />
+      )}
+
+      {stage === 'ineligible' && (
+        <div className="card">
+          <h1>Thank you</h1>
+          <p>
+            This study is for people who can't read any Korean, so we won't ask you to continue. Thank you for your
+            time and interest.
+          </p>
+          <p className="muted small">You can close this tab.</p>
+        </div>
       )}
 
       {stage === 'done' && (

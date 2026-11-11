@@ -3,6 +3,9 @@ import type { Question } from '../components/Survey';
 import type { ExplanationType } from '../types';
 import { EXPLANATION_NAMES } from '../lib/session';
 
+/** Only people who can't read Korean at all take part; any other answer to `korean_proficiency` ends the session. */
+export const ELIGIBLE_KOREAN = 'Not at all';
+
 export const preSurvey: Question[] = [
   { id: 'occupation', type: 'text', label: 'What is your occupation? (If you are a student, what are you studying?)' },
   {
@@ -16,7 +19,7 @@ export const preSurvey: Question[] = [
     id: 'korean_proficiency',
     type: 'choice',
     label: 'How well can you read Korean?',
-    options: ['Not at all', 'I recognize some characters', 'Basic', 'Intermediate', 'Fluent / native'],
+    options: [ELIGIBLE_KOREAN, 'I recognize some characters', 'Basic', 'Intermediate', 'Fluent / native'],
   },
   {
     id: 'other_languages',

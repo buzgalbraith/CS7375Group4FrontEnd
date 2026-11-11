@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import type { ExplanationType, Stimulus } from '../types';
 import { containsToken, matchingLinks, SourceMatch, type WordSelection } from './SourceMatch';
 
@@ -8,8 +9,6 @@ interface Props {
   overlay: ExplanationType | null;
   onAlignmentHover?: () => void;
   onViewOriginal?: () => void;
-  /** Called when the participant clicks "Show transcription". */
-  onShowTranscription?: () => void;
 }
 
 /** Heatmap shading. Starting cut-offs from explanations/logprob_heatmap/METHOD.md; fixed before showing anyone. */
@@ -25,17 +24,17 @@ export function qeLevel(score: number): 'bad' | 'warn' | 'ok' {
   return 'ok';
 }
 
-export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOriginal, onShowTranscription }: Props) {
+export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOriginal }: Props) {
   const [hovered, setHovered] = useState<WordSelection | null>(null);
   const [focused, setFocused] = useState<WordSelection | null>(null);
   const [pinned, setPinned] = useState<WordSelection | null>(null);
   const lastHovered = useRef<WordSelection | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const matchId = useId();
-  // The notice image is shown first; the Korean text is a transcription the participant can reveal.
-  // Without an image, the transcription is all there is, so it's always shown.
+  // The original is shown as the notice image only. The Korean text is shown only when there's no image.
   const image = stimulus.original?.kind === 'image' ? stimulus.original.src : undefined;
-  const [showTranscript, setShowTranscript] = useState(!stimulus.original);
+  // Word glossary on the image needs to know where each Korean word is in it (image-boxes.json).
+  const boxes = image ? stimulus.sourceBoxes : undefined;
   const { alignment, qe, heatmap } = stimulus.explanations;
   const links = useMemo(() => alignment ?? [], [alignment]);
   // Overlays only apply once that explanation exists (null = still pending).
@@ -85,10 +84,6 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
     document.addEventListener('pointerdown', dismissOutside);
     return () => document.removeEventListener('pointerdown', dismissOutside);
   }, [anchor, matchId, clearSelection]);
-  // Word matching works on the transcription, so opening that explanation reveals it.
-  useEffect(() => {
-    if (showAlign) setShowTranscript(true);
-  }, [showAlign]);
   const srcBreaks = useMemo(() => new Set(stimulus.sourceBreaks), [stimulus.sourceBreaks]);
   const tgtBreaks = useMemo(() => new Set(stimulus.targetBreaks), [stimulus.targetBreaks]);
 
@@ -113,18 +108,29 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
   };
   const isHot = (side: 'src' | 'tgt', i: number) =>
     selectedLinks.some((l) => containsToken(i, l[side])) || (selection?.side === side && selection.index === i);
-  const renderToken = (side: 'src' | 'tgt', i: number, text: string, className: string, title?: string) => {
+  const renderToken = (
+    side: 'src' | 'tgt',
+    i: number,
+    text: string,
+    className: string,
+    title?: string,
+    // For a word on the image: where to draw it, and no visible text (the image shows the word).
+    box?: { style: CSSProperties; key: string },
+  ) => {
     if (!showAlign) return <span className={className} title={title}>{text}</span>;
     const isPinned = pinned?.side === side && pinned.index === i;
     return (
       <button
+        key={box?.key}
         type="button"
-        className={`${className} word-match-token`}
-        aria-label={`Show ${side === 'tgt' ? 'source' : 'translation'} for “${text}”`}
-        aria-haspopup="dialog"
-        aria-expanded={selection?.side === side && selection.index === i}
-        aria-controls={selection?.side === side && selection.index === i ? matchId : undefined}
-        aria-describedby={selection?.side === side && selection.index === i ? `${matchId}-content` : undefined}
+        style={box?.style}
+        className={`${className} ${box ? 'image-word' : 'word-match-token'}`}
+        aria-label={side === 'src' ? `Show the translation of “${text}”` : `Highlight the Korean for “${text}”`}
+        // Only Korean words open a popover (their English translation); English words just highlight.
+        aria-haspopup={side === 'src' ? 'dialog' : undefined}
+        aria-expanded={side === 'src' ? selection?.side === side && selection.index === i : undefined}
+        aria-controls={side === 'src' && selection?.side === side && selection.index === i ? matchId : undefined}
+        aria-describedby={side === 'src' && selection?.side === side && selection.index === i ? `${matchId}-content` : undefined}
         aria-pressed={isPinned}
         onMouseEnter={(event) => hover(side, i, event.currentTarget)}
         onMouseLeave={scheduleHoverClose}
@@ -140,7 +146,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
           else setPinned({ side, index: i, anchor: event.currentTarget });
         }}
       >
-        {text}
+        {box ? null : text}
       </button>
     );
   };
@@ -159,23 +165,36 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
           )}
         </div>
         {image && (
-          <button className="doc-image" onClick={onViewOriginal} title="Click to enlarge">
-            <img src={image} alt={`The original notice in ${stimulus.sourceLang}`} draggable={false} />
-          </button>
+          <div className={`doc-image-frame ${showAlign && boxes ? 'with-boxes' : ''}`}>
+            {/* While Word glossary is open the image holds clickable word boxes, so it can't also be a button. */}
+            {showAlign && boxes ? (
+              <img src={image} alt={`The original notice in ${stimulus.sourceLang}`} draggable={false} />
+            ) : (
+              <button className="doc-image" onClick={onViewOriginal} title="Click to enlarge">
+                <img src={image} alt={`The original notice in ${stimulus.sourceLang}`} draggable={false} />
+              </button>
+            )}
+            {showAlign && boxes && (
+              <div className="image-words" lang="ko">
+                {boxes.flatMap((wordBoxes, i) =>
+                  wordBoxes.map(([x, y, w, h], k) =>
+                    renderToken('src', i, stimulus.sourceTokens[i], isHot('src', i) ? 'hot' : '', undefined, {
+                      key: `${i}-${k}`,
+                      // A little padding so the outline doesn't sit on the strokes.
+                      style: {
+                        left: `calc(${x * 100}% - 2px)`,
+                        top: `calc(${y * 100}% - 2px)`,
+                        width: `calc(${w * 100}% + 4px)`,
+                        height: `calc(${h * 100}% + 4px)`,
+                      },
+                    }),
+                  ),
+                )}
+              </div>
+            )}
+          </div>
         )}
-        {stimulus.original && !showAlign && (
-          <button
-            className="small transcript-toggle"
-            aria-expanded={showTranscript}
-            onClick={() => {
-              if (!showTranscript) onShowTranscription?.();
-              setShowTranscript(!showTranscript);
-            }}
-          >
-            {showTranscript ? 'Hide transcription' : 'Show transcription'}
-          </button>
-        )}
-        {(showTranscript || showAlign) && (
+        {(!image || (showAlign && !boxes)) && (
           <p className="doc-text source" lang="ko">
             {stimulus.sourceTokens.map((t, i) => (
               <Fragment key={i}>
@@ -190,7 +209,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
         <h3>
           Machine translation <span className="muted">(English)</span>
         </h3>
-        {showAlign && <p className="word-match-hint small">Hover or focus on a word to open its glossary. Click or tap to pin it; press Escape to close.</p>}
+        {showAlign && <p className="word-match-hint small">Hover over a boxed word on the image to see its translation, or over an English word to find it on the image.</p>}
         <p className="doc-text target" lang="en">
           {stimulus.targetTokens.map((t, i) => {
             const span = showQE ? qe!.spans.find((s) => containsToken(i, s.tgt)) : undefined;
@@ -218,7 +237,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
             );
           })}
         </p>
-        {showAlign && selection && (
+        {showAlign && selection?.side === 'src' && (
           <SourceMatch
             id={matchId}
             stimulus={stimulus}

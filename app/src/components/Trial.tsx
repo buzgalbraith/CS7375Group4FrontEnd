@@ -68,7 +68,6 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
   const [rankings, setRankings] = useState<Record<string, string[]>>(initialRankings);
   const [justifications, setJustifications] = useState<Record<string, string>>({});
   const [hovers, setHovers] = useState(0);
-  const transcriptionOpens = useRef<TrialStep[]>([]);
 
   const [startedAt] = useState(() => Date.now());
   const tabMs = useRef<Record<string, number>>(Object.fromEntries(order.map((t) => [t, 0])));
@@ -139,7 +138,6 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
       tabViewMs: { ...tabMs.current } as TrialResult['tabViewMs'],
       alignmentHovers: hovers,
       originalViews: [...views.current],
-      transcriptionOpens: [...transcriptionOpens.current],
       startedAt,
       completedAt: Date.now(),
     });
@@ -170,8 +168,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
       {hints && step === 'baseline' && (
         <p className="hint">
           💡 Read your situation above, then decide using only the notice and its translation. Use
-          “Enlarge” to see the notice up close (zoom with the +/− buttons or Ctrl + scroll), and “Show transcription”
-          to see the Korean as text.
+          “Enlarge” to see the notice up close (zoom with the +/− buttons or Ctrl + scroll).
         </p>
       )}
       {hints && step === 'question' && (
@@ -183,7 +180,6 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
         overlay={overlay}
         onAlignmentHover={() => setHovers((h) => h + 1)}
         onViewOriginal={openViewer}
-        onShowTranscription={() => transcriptionOpens.current.push(step)}
       />
 
       {viewerOpen && stimulus.original && (
