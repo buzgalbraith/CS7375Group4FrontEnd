@@ -1,5 +1,7 @@
 /** DRAFT survey items, adapted from Ki et al. (pre/post) and Hoffman et al. (2019). Edit freely. */
 import type { Question } from '../components/Survey';
+import type { ExplanationType } from '../types';
+import { EXPLANATION_NAMES } from '../lib/session';
 
 export const preSurvey: Question[] = [
   { id: 'occupation', type: 'text', label: 'What is your occupation? (If you are a student, what are you studying?)' },
@@ -45,10 +47,41 @@ export const preSurvey: Question[] = [
   },
 ];
 
-export const postSurvey: Question[] = [
-  { id: 'mental_burden', type: 'likert', label: 'How mentally demanding was it to use the explanations?', low: 'Very low', high: 'Very high' },
-  { id: 'helpfulness', type: 'likert', label: 'Overall, how helpful were the explanations for judging the translations?', low: 'Not at all', high: 'Extremely' },
-  { id: 'future_trust', type: 'likert', label: 'If a translation tool showed these explanations, how much would you trust it in the future?', low: 'Not at all', high: 'Completely' },
+/** Rating questions asked once overall and once per explanation, shown as one grid each. Answers are stored as
+ *  `<id>` (overall) and `<id>_<type>` (e.g. `helpfulness_qe`), keyed by explanation type so they're comparable
+ *  across conditions. */
+const PER_EXPLANATION = [
+  { id: 'mental_burden', label: 'How mentally demanding was each to use?', low: 'Very low', high: 'Very high' },
+  { id: 'helpfulness', label: 'How helpful was each for judging the translations?', low: 'Not at all', high: 'Extremely' },
+  {
+    id: 'future_trust',
+    label: 'If a translation tool showed this, how much would you trust the tool in the future?',
+    low: 'Not at all',
+    high: 'Completely',
+  },
+];
+
+/** The exit survey. Rows follow the participant's own tab order, after an "overall" row. */
+export function postSurveyFor(order: ExplanationType[]): Question[] {
+  return [
+    ...PER_EXPLANATION.map(
+      (q): Question => ({
+        id: q.id,
+        type: 'matrix',
+        label: q.label,
+        low: q.low,
+        high: q.high,
+        rows: [
+          { id: q.id, label: 'All explanations overall' },
+          ...order.map((t) => ({ id: `${q.id}_${t}`, label: EXPLANATION_NAMES[t] })),
+        ],
+      }),
+    ),
+    ...postSurveyOpen,
+  ];
+}
+
+const postSurveyOpen: Question[] = [
   { id: 'most_useful', type: 'text', long: true, label: 'Which kind of explanation was most useful to you, and why?' },
   { id: 'missing', type: 'text', long: true, label: 'What information was missing that would have helped you decide?' },
   {

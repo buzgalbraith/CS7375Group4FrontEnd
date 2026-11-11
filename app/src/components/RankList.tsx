@@ -16,7 +16,19 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-function Item({ id, rank, onMove, last }: { id: string; rank: number; last: boolean; onMove: (d: -1 | 1) => void }) {
+function Item({
+  id,
+  name,
+  rank,
+  onMove,
+  last,
+}: {
+  id: string;
+  name: string;
+  rank: number;
+  last: boolean;
+  onMove: (d: -1 | 1) => void;
+}) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
   return (
     <li
@@ -26,13 +38,13 @@ function Item({ id, rank, onMove, last }: { id: string; rank: number; last: bool
     >
       <span className="rank-num">{rank}</span>
       <span className="rank-handle" {...attributes} {...listeners}>
-        ⠿ Explanation {id}
+        ⠿ {name}
       </span>
       <span className="rank-btns">
-        <button aria-label={`Move ${id} up`} disabled={rank === 1} onClick={() => onMove(-1)}>
+        <button aria-label={`Move ${name} up`} disabled={rank === 1} onClick={() => onMove(-1)}>
           ▲
         </button>
-        <button aria-label={`Move ${id} down`} disabled={last} onClick={() => onMove(1)}>
+        <button aria-label={`Move ${name} down`} disabled={last} onClick={() => onMove(1)}>
           ▼
         </button>
       </span>
@@ -40,7 +52,16 @@ function Item({ id, rank, onMove, last }: { id: string; rank: number; last: bool
   );
 }
 
-export function RankList({ items, onChange }: { items: string[]; onChange: (items: string[]) => void }) {
+/** `items` are the stable labels (A, B, …) stored in the data; `names` is what participants see for each. */
+export function RankList({
+  items,
+  names,
+  onChange,
+}: {
+  items: string[];
+  names: Record<string, string>;
+  onChange: (items: string[]) => void;
+}) {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
@@ -57,6 +78,7 @@ export function RankList({ items, onChange }: { items: string[]; onChange: (item
             <Item
               key={id}
               id={id}
+              name={names[id] ?? `Explanation ${id}`}
               rank={i + 1}
               last={i === items.length - 1}
               onMove={(d) => onChange(arrayMove(items, i, i + d))}

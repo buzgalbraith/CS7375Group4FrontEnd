@@ -21,7 +21,7 @@ URL parameters:
 
 ## Flow
 Consent → pre-survey → 4 notices (the first with hints) → post-survey → done (upload + JSON download).
-Each notice: **baseline decision** (rely on it or get it checked; translation only) → **reveal** explanations as neutral tabs A–D (all must be opened)
+Each notice: **baseline decision** (rely on it or get it checked; translation only) → **reveal** explanations as tabs named by method (all must be opened)
 → **revised decision** → **comprehension question** (yes / no / not sure) → **rank** on two dimensions with required
 justifications. The scenario is shown throughout.
 
@@ -67,3 +67,17 @@ Each notice's `image` in notices.json is bundled by Vite and opened in a modal v
 supports PDFs (drawn with pdf.js) and saved HTML pages (same-origin iframe) via `original.kind`, though the
 current data only uses images. The viewer is display-only: the Korean text comes from notices.json, so no OCR is
 needed. Each open is logged per trial as `originalViews: [{ step, ms, maxZoom }]`.
+
+## Word-matching interface preview
+
+Run `npm run dev` and open `http://localhost:5173/?preview=alignment` to try the source tracing interface.
+This development-only page uses clearly labeled handwritten examples and does not start a participant
+session or upload responses. The controls also show the baseline, missing-mapping, and empty-mapping states.
+
+In the study, source tracing is available **only in the Word matching explanation**, once that notice and
+translation version have `alignment` data in `translation-experiment-data/explanations.json`. Hover or
+keyboard-focus a word in either language to highlight its direct matches. The detail card below the English
+translation shows each exact linked Korean/English token span, the notice title, and the Korean paragraph
+number. Click, tap, Enter, or Space keeps a selection visible; Clear selection or Escape clears it.
+Unmapped words report that no supplied match is available; they are not automatically judged incorrect.
+The real study mappings are still pending. This interface does not generate or infer them.

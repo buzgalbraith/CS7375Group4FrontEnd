@@ -1,4 +1,5 @@
 import type { ExplanationType, Stimulus } from '../types';
+import { EXPLANATION_NAMES } from '../lib/session';
 import { wordDiff } from '../lib/diff';
 import { qeLevel } from './DocumentPane';
 
@@ -9,7 +10,7 @@ const TUTORIAL_HINTS: Record<ExplanationType, string> = {
   rationale: 'This is a written explanation, produced by an AI model, of how well the translation matches the original.',
   qe: 'Parts of the translation are colored by how likely they are to contain an error. Hover over colored text to see details.',
   alignment:
-    'Hover over words in the Korean transcription or the translation to see which words correspond to each other. Translated words with a dashed underline have no matching words in the original.',
+    'Hover or focus on words in either text to see the linked Korean phrase and its paragraph. Click or tap to keep a match visible. A dashed underline means no source match is available in the supplied word mappings.',
 };
 
 interface Props {
@@ -35,7 +36,7 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
 
       {type === 'backtranslation' && (
         <div>
-          <h4>Round-trip translation</h4>
+          <h4>{EXPLANATION_NAMES.backtranslation}</h4>
           <p className="doc-text">
             {wordDiff(target, ex.backtranslation!).map((p, i) =>
               p.kind === 'removed' ? null : (
@@ -53,14 +54,14 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
 
       {type === 'rationale' && (
         <div>
-          <h4>Written explanation</h4>
+          <h4>{EXPLANATION_NAMES.rationale}</h4>
           <p className="rationale">{ex.rationale}</p>
         </div>
       )}
 
       {type === 'qe' && (
         <div>
-          <h4>Estimated translation quality</h4>
+          <h4>{EXPLANATION_NAMES.qe}</h4>
           <div className="qe-score">
             <div className="qe-bar">
               <div className="qe-fill" style={{ width: `${ex.qe!.score}%` }} />
@@ -90,13 +91,14 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
 
       {type === 'alignment' && (
         <div>
-          <h4>Word correspondence</h4>
+          <h4>{EXPLANATION_NAMES.alignment}</h4>
           <p>
-            Hover over words in the original or the translation above to see which words correspond to each other.
+            Hover or focus on a word above to highlight its matches and see its source below the translation.
+            Click or tap to keep the match visible. Use Clear selection or Escape to dismiss it.
           </p>
           <p className="legend">
             <span className="tok hot">highlighted</span> = matching words ·{' '}
-            <span className="tok unaligned">dashed</span> = no match found in the original
+            <span className="tok unaligned">dashed</span> = no source match available
           </p>
         </div>
       )}

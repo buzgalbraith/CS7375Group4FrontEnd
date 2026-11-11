@@ -15,6 +15,15 @@ export const NUM_CONDITIONS = LATIN_SQUARE.length;
 
 export const LABELS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
+/** Names participants see on the tabs, in the rankings and in the exit survey, so they can refer to each one.
+ *  Kept descriptive rather than evaluative ("Quality estimate", not "Error detector"). */
+export const EXPLANATION_NAMES: Record<ExplanationType, string> = {
+  backtranslation: 'Round-trip translation',
+  rationale: 'Rationale generation',
+  qe: 'Quality estimate',
+  alignment: 'Word glossary',
+};
+
 export function explanationOrder(condition: number): ExplanationType[] {
   return LATIN_SQUARE[condition % NUM_CONDITIONS].map((i) => EXPLANATION_TYPES[i]);
 }
