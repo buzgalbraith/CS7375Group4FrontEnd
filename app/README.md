@@ -21,7 +21,7 @@ URL parameters:
 
 ## Flow
 Consent → pre-survey → 4 notices (the first with hints) → post-survey → done (upload + JSON download).
-Each notice: **baseline decision** (rely on it or get it checked; translation only) → **reveal** explanations as neutral tabs A–D (all must be opened)
+Each notice: **baseline decision** (rely on it or get it checked; translation only) → **reveal** explanations as tabs named by method (all must be opened)
 → **revised decision** → **comprehension question** (yes / no / not sure) → **rank** on two dimensions with required
 justifications. The scenario is shown throughout.
 

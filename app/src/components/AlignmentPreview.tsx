@@ -57,9 +57,9 @@ export default function AlignmentPreview() {
         <div className="alignment-preview-controls">
           <label>View
             <select value={overlay ?? 'baseline'} onChange={(e) => setOverlay(e.target.value === 'baseline' ? null : e.target.value as ExplanationType)}>
-              <option value="alignment">Word matching</option>
+              <option value="alignment">Word glossary</option>
               <option value="baseline">First impression</option>
-              <option value="rationale">Written explanation</option>
+              <option value="rationale">Rationale generation</option>
             </select>
           </label>
           <label>Mappings

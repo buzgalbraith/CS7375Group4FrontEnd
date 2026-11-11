@@ -11,7 +11,7 @@ import type {
 } from '../types';
 import { ComprehensionQuestion } from './ComprehensionQuestion';
 import { OriginalViewer } from './OriginalViewer';
-import { LABELS, shuffle } from '../lib/session';
+import { EXPLANATION_NAMES, LABELS, shuffle } from '../lib/session';
 import { DocumentPane } from './DocumentPane';
 import { ExplanationPanel } from './ExplanationPanel';
 import { DecisionForm } from './DecisionForm';
@@ -197,7 +197,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
                 className={`tab ${active === i ? 'active' : ''} ${viewed.has(i) ? 'seen' : ''}`}
                 onClick={() => openTab(i)}
               >
-                Explanation {l} {viewed.has(i) && <span className="check">✓</span>}
+                {EXPLANATION_NAMES[order[i]]} {viewed.has(i) && <span className="check">✓</span>}
               </button>
             ))}
           </div>
@@ -260,7 +260,10 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
                   <p className="q">
                     {k + 1}. {d.question}
                   </p>
-                  <RankList items={rankings[d.id]} onChange={(items) => setRankings((r) => ({ ...r, [d.id]: items }))} />
+                  <RankList
+                    items={rankings[d.id]}
+                    names={Object.fromEntries(labels.map((l, i) => [l, EXPLANATION_NAMES[order[i]]]))}
+                    onChange={(items) => setRankings((r) => ({ ...r, [d.id]: items }))} />
                   <label className="small">
                     {d.why}
                     <textarea

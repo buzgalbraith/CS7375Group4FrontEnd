@@ -5,7 +5,18 @@ export type Question =
   | { id: string; type: 'text'; label: string; optional?: boolean; long?: boolean }
   | { id: string; type: 'choice'; label: string; options: string[]; optional?: boolean }
   | { id: string; type: 'multi'; label: string; options: string[]; optional?: boolean }
-  | { id: string; type: 'likert'; label: string; low: string; high: string; points?: number; optional?: boolean };
+  | { id: string; type: 'likert'; label: string; low: string; high: string; points?: number; optional?: boolean }
+  /** Several items rated on one shared scale, shown as a grid. Each row's answer is stored under the row's id. */
+  | {
+      id: string;
+      type: 'matrix';
+      label: string;
+      rows: { id: string; label: string }[];
+      low: string;
+      high: string;
+      points?: number;
+      optional?: boolean;
+    };
 
 interface Props {
   title: string;
@@ -20,8 +31,9 @@ export function Survey({ title, intro, questions, submitLabel = 'Continue', onSu
   const set = (id: string, v: SurveyAnswers[string]) => setA((prev) => ({ ...prev, [id]: v }));
 
   const answered = (q: Question) => {
-    const v = a[q.id];
     if (q.optional) return true;
+    if (q.type === 'matrix') return q.rows.every((r) => a[r.id] !== undefined);
+    const v = a[q.id];
     if (Array.isArray(v)) return v.length > 0;
     return v !== undefined && String(v).trim() !== '';
   };
@@ -68,6 +80,7 @@ export function Survey({ title, intro, questions, submitLabel = 'Continue', onSu
               })}
             </div>
           )}
+          {q.type === 'matrix' && <Matrix q={q} answers={a} set={set} />}
           {q.type === 'likert' && (
             <div className="likert">
               {Array.from({ length: q.points ?? 7 }, (_, i) => i + 1).map((n, i, arr) => (
@@ -84,6 +97,54 @@ export function Survey({ title, intro, questions, submitLabel = 'Continue', onSu
       <button className="primary" disabled={!complete} onClick={() => onSubmit(a)}>
         {submitLabel}
       </button>
+    </div>
+  );
+}
+
+function Matrix({
+  q,
+  answers,
+  set,
+}: {
+  q: Extract<Question, { type: 'matrix' }>;
+  answers: SurveyAnswers;
+  set: (id: string, v: number) => void;
+}) {
+  const points = Array.from({ length: q.points ?? 7 }, (_, i) => i + 1);
+  return (
+    <div className="matrix-wrap">
+      <table className="matrix">
+        <thead>
+          <tr>
+            <th />
+            {points.map((n, i) => (
+              <th key={n} scope="col">
+                {n}
+                {i === 0 && <span className="matrix-anchor">{q.low}</span>}
+                {i === points.length - 1 && <span className="matrix-anchor">{q.high}</span>}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {q.rows.map((r) => (
+            <tr key={r.id} className={answers[r.id] === undefined ? '' : 'done'}>
+              <th scope="row">{r.label}</th>
+              {points.map((n) => (
+                <td key={n}>
+                  <input
+                    type="radio"
+                    name={r.id}
+                    aria-label={`${r.label}: ${n}`}
+                    checked={answers[r.id] === n}
+                    onChange={() => set(r.id, n)}
+                  />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

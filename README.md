@@ -10,7 +10,7 @@ the source language.
 
 > ⚠️ **Status: real notices, no explanations yet.** The notices, translations, scenarios and questions are the
 > team's study materials. Explanations haven't been generated yet (`explanations.json` is absent), so every
-> explanation shows as "not generated yet". Survey items and consent text are drafts. See [Before running real participants](#before-running-real-participants).
+> explanation shows as "not generated yet". Survey items are drafts. See [Before running real participants](#before-running-real-participants).
 
 ---
 
@@ -48,10 +48,10 @@ Consent → Pre-survey → 4 notices (the first with hints) → Post-survey → 
 
 | Step | What happens |
 |---|---|
-| **Consent** | Study info, a request not to use outside translation tools, the participant's **email** (required; sets their ID), and an agreement checkbox (placeholder text). |
+| **Consent** | Study info, a request not to use outside translation tools, the participant's **email** (required; sets their ID), and an agreement checkbox. No formal consent form: this is a class project without IRB review. |
 | **Pre-survey** | Occupation, age range, first language, Korean proficiency, other languages spoken at an advanced level (optional), how they usually check a translation, machine-translation use and trust (adapted from Ki et al.). |
 | **Notices** | The 4 notices (2 pharmacy, 2 hotel), each through the four steps below. On the first one, each step and explanation shows a hint on how to read it (there is no separate practice round). |
-| **Post-survey** | Mental demand, helpfulness, future trust (Hoffman et al., 2019), open-ended questions, and an optional question about a time machine translation misled them. |
+| **Post-survey** | Mental demand, helpfulness and future trust (Hoffman et al., 2019), each rated overall and then for each explanation by name (stored as e.g. `helpfulness` and `helpfulness_qe`), open-ended questions, and an optional question about a time machine translation misled them. |
 | **Done** | Upload status, with a JSON download as a fallback. |
 
 ### Each notice: decide → reveal → question → rank
@@ -63,7 +63,9 @@ automatically when the word-matching explanation is opened, since that explanati
 1. **First impression.** Korean text + English translation only → *Rely on this translation* / *Get it
    checked* + confidence (1–7). The notice's `check_cost` (e.g. *"calling the clinic, which has a long phone
    queue"*) is shown under *Get it checked*. Stored as `accept` / `reject`. This is the **no-explanation baseline**.
-2. **Explanations.** Four explanations appear as neutrally labeled tabs (*Explanation A–D*). All four must be
+2. **Explanations.** Four explanations appear as tabs named by method (*Round-trip translation*, *Rationale
+   generation*, *Quality estimate*, *Word glossary*), in the participant's condition order, so they can refer
+   to them by name later. All four must be
    opened, then the participant decides again (rely / get it checked + confidence).
 3. **Question.** The scenario's key question (e.g. *"Should you still be taking it on the following
    Wednesday?"*), answered *Yes* / *No* (random order) or *I'm not sure*. One of Yes/No reflects the true
@@ -90,9 +92,9 @@ automatically when the word-matching explanation is opened, since that explanati
 | Type | What the participant sees |
 |---|---|
 | **Round-trip translation** | The translation translated into Korean and back into English; wording that differs from the translation is highlighted. |
-| **Written explanation** | An LLM-generated paragraph on how well the translation matches the original. |
+| **Rationale generation** | An LLM-generated paragraph on how well the translation matches the original. |
 | **Quality estimate** | An overall score (0–100) and the translation colored by how likely each part is to be wrong (likely error / uncertain / likely fine). |
-| **Word matching** | Hover a word in either text to highlight the corresponding words; English words with no match get a dashed underline. |
+| **Word glossary** | Hover a word in either text to highlight the corresponding words; English words with no match get a dashed underline. |
 
 All explanations are **precomputed** (stored in `explanations.json`), so every participant sees identical
 stimuli and nothing calls a model at study time.
@@ -105,15 +107,15 @@ A condition (`cond` = 0–3) sets three things: the **explanation order**, the *
 get the flawed translation**. Every participant sees all four explanation types on all four notices, so
 explanation type is compared within each participant.
 
-**Explanation order (tabs A → D).** Balanced Latin square: across conditions each type appears in each position
+**Explanation order (tabs, left to right; stored as labels A → D).** Balanced Latin square: across conditions each type appears in each position
 once and follows every other type once. A participant keeps the same order throughout their session.
 
 | `cond` | A | B | C | D |
 |---|---|---|---|---|
-| **0** | Round-trip translation | Written explanation | Word matching | Quality estimate |
-| **1** | Written explanation | Quality estimate | Round-trip translation | Word matching |
-| **2** | Quality estimate | Word matching | Written explanation | Round-trip translation |
-| **3** | Word matching | Round-trip translation | Quality estimate | Written explanation |
+| **0** | Round-trip translation | Rationale generation | Word glossary | Quality estimate |
+| **1** | Rationale generation | Quality estimate | Round-trip translation | Word glossary |
+| **2** | Quality estimate | Word glossary | Rationale generation | Round-trip translation |
+| **3** | Word glossary | Round-trip translation | Quality estimate | Rationale generation |
 
 **Notices and versions** (✗ flawed translation, ✓ correct). The 1st notice is the one shown with hints.
 
@@ -161,7 +163,7 @@ Keep a session sheet (pid, cond, mode, date, moderator, notes).
 ### Remote over Zoom (`mode=remote`)
 - Send the link in chat and have the participant open it **in their own browser** and share their screen.
   Hover and drag lag badly under remote control.
-- Laptop or desktop only. Word matching relies on hover.
+- Laptop or desktop only. Word glossary relies on hover.
 - Record the call, with consent.
 
 ### Self-serve (`mode=online` or omitted)
@@ -298,7 +300,6 @@ session.
 
 ## Before running real participants
 
-- [ ] Replace the consent placeholder (`app/src/App.tsx`, Welcome screen)
 - [ ] Real explanations for all 4 notices × 2 versions (`explanations.json`)
 - [ ] `npm run check-data` passes with no "pending" or "(mock)" in the coverage table
 - [ ] Finalize survey items (`app/src/data/surveys.ts`)

@@ -1,4 +1,5 @@
 import type { ExplanationType, Stimulus } from '../types';
+import { EXPLANATION_NAMES } from '../lib/session';
 import { wordDiff } from '../lib/diff';
 import { qeLevel } from './DocumentPane';
 
@@ -35,7 +36,7 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
 
       {type === 'backtranslation' && (
         <div>
-          <h4>Round-trip translation</h4>
+          <h4>{EXPLANATION_NAMES.backtranslation}</h4>
           <p className="doc-text">
             {wordDiff(target, ex.backtranslation!).map((p, i) =>
               p.kind === 'removed' ? null : (
@@ -53,14 +54,14 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
 
       {type === 'rationale' && (
         <div>
-          <h4>Written explanation</h4>
+          <h4>{EXPLANATION_NAMES.rationale}</h4>
           <p className="rationale">{ex.rationale}</p>
         </div>
       )}
 
       {type === 'qe' && (
         <div>
-          <h4>Estimated translation quality</h4>
+          <h4>{EXPLANATION_NAMES.qe}</h4>
           <div className="qe-score">
             <div className="qe-bar">
               <div className="qe-fill" style={{ width: `${ex.qe!.score}%` }} />
@@ -90,7 +91,7 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
 
       {type === 'alignment' && (
         <div>
-          <h4>Word correspondence</h4>
+          <h4>{EXPLANATION_NAMES.alignment}</h4>
           <p>
             Hover or focus on a word above to highlight its matches and see its source below the translation.
             Click or tap to keep the match visible. Use Clear selection or Escape to dismiss it.

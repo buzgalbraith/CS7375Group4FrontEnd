@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { SessionRecord, TrialResult } from './types';
 import { stimuliForCondition } from './data/study';
-import { preSurvey, postSurvey } from './data/surveys';
-import { downloadJSON, explanationOrder, initSession, isEmail, params, saveLocal, withEmail } from './lib/session';
+import { preSurvey, postSurveyFor } from './data/surveys';
+import { EXPLANATION_NAMES, downloadJSON, explanationOrder, initSession, isEmail, params, saveLocal, withEmail } from './lib/session';
 import { flush, recordEvent, useSyncStatus, type EventKind } from './lib/sync';
 import { Trial } from './components/Trial';
 import { Survey } from './components/Survey';
@@ -63,9 +63,6 @@ export default function App() {
             <strong>Please don't use any external translation tools</strong> (such as Google Translate, Papago or
             ChatGPT) at any point during the study. We want to know how you judge the translations using only what
             the study shows you.
-          </p>
-          <p className="muted small">
-            [Placeholder consent text: purpose, voluntary participation, data handling, contact information.]
           </p>
           <label className="email-field">
             Your email address
@@ -140,7 +137,8 @@ export default function App() {
       {stage === 'post' && (
         <Survey
           title="Final questions"
-          questions={postSurvey}
+          intro={`The four explanations you saw were: ${order.map((t) => EXPLANATION_NAMES[t]).join(', ')}.`}
+          questions={postSurveyFor(order)}
           submitLabel="Submit"
           onSubmit={(post) => {
             const final = { ...session, post, completedAt: Date.now() };
