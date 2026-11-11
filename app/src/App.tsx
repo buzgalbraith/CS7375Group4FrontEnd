@@ -24,7 +24,7 @@ export default function App() {
   const trials = useMemo(() => stimuliForCondition(session.condition), [session.condition]);
 
   useEffect(() => saveLocal(session), [session]);
-  useEffect(() => window.scrollTo({ top: 0 }), [stage, trialIdx]);
+  useEffect(() => { window.scrollTo({ top: 0 }); }, [stage, trialIdx]);
   // Each step is uploaded as soon as it's finished, so partial sessions (dropouts) are kept.
   const record = (kind: EventKind, payload: unknown) => recordEvent(session, kind, payload);
 

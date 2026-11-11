@@ -102,7 +102,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
     if (viewerSession.current) viewerSession.current.maxZoom = Math.max(viewerSession.current.maxZoom, z);
   }, []);
 
-  useEffect(() => window.scrollTo({ top: 0 }), [step]);
+  useEffect(() => { window.scrollTo({ top: 0 }); }, [step]);
 
   const allViewed = viewed.size === order.length;
   const rankDone = RANK_DIMENSIONS.every((d) => (justifications[d.id] ?? '').trim().length >= MIN_JUSTIFICATION);

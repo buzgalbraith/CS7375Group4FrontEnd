@@ -9,7 +9,7 @@ const TUTORIAL_HINTS: Record<ExplanationType, string> = {
   rationale: 'This is a written explanation, produced by an AI model, of how well the translation matches the original.',
   qe: 'Parts of the translation are colored by how likely they are to contain an error. Hover over colored text to see details.',
   alignment:
-    'Hover over words in the Korean transcription or the translation to see which words correspond to each other. Translated words with a dashed underline have no matching words in the original.',
+    'Hover or focus on words in either text to see the linked Korean phrase and its paragraph. Click or tap to keep a match visible. A dashed underline means no source match is available in the supplied word mappings.',
 };
 
 interface Props {
@@ -92,11 +92,12 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
         <div>
           <h4>Word correspondence</h4>
           <p>
-            Hover over words in the original or the translation above to see which words correspond to each other.
+            Hover or focus on a word above to highlight its matches and see its source below the translation.
+            Click or tap to keep the match visible. Use Clear selection or Escape to dismiss it.
           </p>
           <p className="legend">
             <span className="tok hot">highlighted</span> = matching words ·{' '}
-            <span className="tok unaligned">dashed</span> = no match found in the original
+            <span className="tok unaligned">dashed</span> = no source match available
           </p>
         </div>
       )}
