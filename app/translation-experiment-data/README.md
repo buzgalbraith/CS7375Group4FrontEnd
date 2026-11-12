@@ -146,6 +146,12 @@ the common no-cost sense of “free”, request adverb “please”, and state s
 are locally curated. This license applies to the dictionary content; it does not relicense app code.
 Keep the attribution, license, retrieval date, and source links with any redistributed dictionary content.
 
+**Curated Korean glosses.** The Word glossary shows each Korean word's *first* sense, so the first sense must
+be the one meant in the notice (e.g. 시 = o'clock, not "city"). Where Wiktionary had the right sense it was moved
+first. Otherwise the study team added a sense or a whole entry marked `"curated": true`: these are not from
+Wiktionary and have no `sourceUrl`. This includes the phrase entry `이 주` = "two weeks" (이 is the number two
+there, "this" elsewhere). Hover-check every Korean word after changing a notice's `korean` text.
+
 Run `npm run check-data` after editing definitions or forms, and `npm run test:dictionary` after changing
 lookup behavior. Definitions are bundled at build time so every participant using a build sees the
 same text and the glossary continues to work offline.

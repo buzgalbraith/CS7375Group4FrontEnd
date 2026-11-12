@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { AlignLink, Stimulus, TokenRange } from '../types';
-import { DictionaryEntries } from './DictionaryEntries';
+import { koreanGloss } from '../lib/glossary';
 
 export interface WordSelection {
   side: 'src' | 'tgt';
@@ -103,6 +103,8 @@ export function SourceMatch({ id, stimulus, selection, links, pinned, onClear, o
     links.findIndex((other) => other.src[0] === link.src[0] && other.src[1] === link.src[1]
       && other.tgt[0] === link.tgt[0] && other.tgt[1] === link.tgt[1]) === i,
   );
+  // A Korean word shows its dictionary meaning; word-matching links are the fallback for words with no entry.
+  const gloss = selection.side === 'src' ? koreanGloss(stimulus, selection.index) : null;
 
   return createPortal(
     <div
@@ -123,8 +125,8 @@ export function SourceMatch({ id, stimulus, selection, links, pinned, onClear, o
           <button type="button" className="glossary-close" aria-label="Close" onClick={onClear}>×</button>
         )}
         <div id={`${id}-content`} role="status" aria-live="polite" aria-atomic="true">
-          {stimulus.explanations.alignment === null ? (
-            <p className="glossary-line muted">Word matches not available yet</p>
+          {gloss ? (
+            <p className="glossary-line source-match-translation" lang="en">{gloss}</p>
           ) : uniqueLinks.length === 0 ? (
             <p className="glossary-line muted">No translation available</p>
           ) : (
@@ -135,13 +137,6 @@ export function SourceMatch({ id, stimulus, selection, links, pinned, onClear, o
               </p>
             ))
           )}
-          <DictionaryEntries
-            key={`${selection.side}:${selection.index}`}
-            stimulus={stimulus}
-            side={selection.side}
-            tokenIndex={selection.index}
-            links={links}
-          />
         </div>
       </div>
     </div>,

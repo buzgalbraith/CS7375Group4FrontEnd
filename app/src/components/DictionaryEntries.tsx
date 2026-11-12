@@ -21,7 +21,7 @@ function Entry({ match }: { match: DictionaryMatch }) {
           {remaining.map((sense, i) => <p key={i}><span className="dictionary-pos">{sense.partOfSpeech}</span> {sense.definition}</p>)}
         </details>
       )}
-      <a className="dictionary-source" href={entry.sourceUrl} target="_blank" rel="noreferrer">Wiktionary entry ↗</a>
+      {entry.sourceUrl && <a className="dictionary-source" href={entry.sourceUrl} target="_blank" rel="noreferrer">Wiktionary entry ↗</a>}
     </article>
   );
 }

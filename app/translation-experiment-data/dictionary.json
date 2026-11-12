@@ -1,5 +1,5 @@
 {
-  "about": "Offline English definitions for the study and interface preview. Extracted from English Wiktionary; HTML and examples removed, up to eight senses and 160 words per headword retained, common free/please/be senses reordered. Surface forms are explicitly mapped to headwords; no runtime stemming or translation inference.",
+  "about": "Offline English definitions for the study and interface preview. Extracted from English Wiktionary; HTML and examples removed, up to eight senses and 160 words per headword retained, common free/please/be senses reordered. Surface forms are explicitly mapped to headwords; no runtime stemming or translation inference. Korean senses and entries marked \"curated\": true were written by the study team (not from Wiktionary) so the first sense of each word matches its meaning in the notices.",
   "retrievedOn": "2026-11-12",
   "attribution": "Wiktionary contributors",
   "license": {
@@ -6240,6 +6240,21 @@
       "sourceUrl": "https://en.wiktionary.org/wiki/%EA%B0%80%EB%8B%A4#Korean"
     },
     {
+      "id": "ko:가려움",
+      "language": "ko",
+      "headword": "가려움",
+      "forms": [
+        "가려움을"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "itching, itchiness"
+        }
+      ]
+    },
+    {
       "id": "ko:감기약",
       "language": "ko",
       "headword": "감기약",
@@ -6374,6 +6389,19 @@
       "sourceUrl": "https://en.wiktionary.org/wiki/%EA%B3%B3#Korean"
     },
     {
+      "id": "ko:공용",
+      "language": "ko",
+      "headword": "공용",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "shared; for common use"
+        }
+      ]
+    },
+    {
       "id": "ko:그릇",
       "language": "ko",
       "headword": "그릇",
@@ -6459,11 +6487,16 @@
       "senses": [
         {
           "partOfSpeech": "verb",
-          "definition": "to be born"
+          "definition": "to occur, to appear (나면 = if it occurs)",
+          "curated": true
         },
         {
           "partOfSpeech": "verb",
           "definition": "to appear, arise, occur, take place"
+        },
+        {
+          "partOfSpeech": "verb",
+          "definition": "to be born"
         },
         {
           "partOfSpeech": "verb",
@@ -6503,6 +6536,11 @@
         "내에서는"
       ],
       "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "inside, within",
+          "curated": true
+        },
         {
           "partOfSpeech": "noun",
           "definition": "stream, brook"
@@ -6856,6 +6894,11 @@
       ],
       "senses": [
         {
+          "partOfSpeech": "counter",
+          "definition": "people (counter for persons)",
+          "curated": true
+        },
+        {
           "partOfSpeech": "noun",
           "definition": "name"
         },
@@ -7002,6 +7045,10 @@
       "senses": [
         {
           "partOfSpeech": "adverb",
+          "definition": "right now"
+        },
+        {
+          "partOfSpeech": "adverb",
           "definition": "truly, without lie or deception"
         },
         {
@@ -7011,10 +7058,6 @@
         {
           "partOfSpeech": "adverb",
           "definition": "in strict accordance with rules"
-        },
-        {
-          "partOfSpeech": "adverb",
-          "definition": "right now"
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EB%B0%94%EB%A1%9C#Korean"
@@ -7154,6 +7197,21 @@
       "sourceUrl": "https://en.wiktionary.org/wiki/%EB%B3%B4%EA%B4%80%ED%95%98%EB%8B%A4#Korean"
     },
     {
+      "id": "ko:복용",
+      "language": "ko",
+      "headword": "복용",
+      "forms": [
+        "복용을"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "taking (medicine)"
+        }
+      ]
+    },
+    {
       "id": "ko:복용하다",
       "language": "ko",
       "headword": "복용하다",
@@ -7182,12 +7240,12 @@
       ],
       "senses": [
         {
-          "partOfSpeech": "numeral",
-          "definition": "one tenth, ⁄10"
-        },
-        {
           "partOfSpeech": "noun",
           "definition": "person"
+        },
+        {
+          "partOfSpeech": "numeral",
+          "definition": "one tenth, ⁄10"
         },
         {
           "partOfSpeech": "noun",
@@ -7255,6 +7313,19 @@
       "sourceUrl": "https://en.wiktionary.org/wiki/%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8#Korean"
     },
     {
+      "id": "ko:빠짐없이",
+      "language": "ko",
+      "headword": "빠짐없이",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "adverb",
+          "definition": "without missing any; without fail"
+        }
+      ]
+    },
+    {
       "id": "ko:사용하다",
       "language": "ko",
       "headword": "사용하다",
@@ -7301,12 +7372,12 @@
       ],
       "senses": [
         {
-          "partOfSpeech": "adverb",
-          "definition": "even if, even though"
-        },
-        {
           "partOfSpeech": "noun",
           "definition": "diarrhea"
+        },
+        {
+          "partOfSpeech": "adverb",
+          "definition": "even if, even though"
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%84%A4%EC%82%AC#Korean"
@@ -7351,6 +7422,21 @@
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%84%B8#Korean"
+    },
+    {
+      "id": "ko:세티리진",
+      "language": "ko",
+      "headword": "세티리진",
+      "forms": [
+        "세티리진입니다"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "cetirizine (an allergy medicine)"
+        }
+      ]
     },
     {
       "id": "ko:손",
@@ -7428,6 +7514,11 @@
       "headword": "수",
       "forms": [],
       "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "way, possibility (수 있다 = can; 수 없다 = cannot)",
+          "curated": true
+        },
         {
           "partOfSpeech": "noun",
           "definition": "move"
@@ -7563,6 +7654,11 @@
       "senses": [
         {
           "partOfSpeech": "noun",
+          "definition": "o'clock; hour",
+          "curated": true
+        },
+        {
+          "partOfSpeech": "noun",
           "definition": "town, city"
         },
         {
@@ -7663,6 +7759,21 @@
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%8B%AC%ED%95%98%EB%8B%A4#Korean"
     },
     {
+      "id": "ko:심해지다",
+      "language": "ko",
+      "headword": "심해지다",
+      "forms": [
+        "심해지거나"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "verb",
+          "definition": "to get worse, to become severe"
+        }
+      ]
+    },
+    {
       "id": "ko:씻다",
       "language": "ko",
       "headword": "씻다",
@@ -7676,6 +7787,22 @@
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%94%BB%EB%8B%A4#Korean"
+    },
+    {
+      "id": "ko:아목시실린",
+      "language": "ko",
+      "headword": "아목시실린",
+      "forms": [
+        "아목시실린입니다",
+        "아목시실린은"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "amoxicillin (an antibiotic)"
+        }
+      ]
     },
     {
       "id": "ko:아침",
@@ -7705,6 +7832,11 @@
       ],
       "senses": [
         {
+          "partOfSpeech": "verb",
+          "definition": "not (negates the verb before it)",
+          "curated": true
+        },
+        {
           "partOfSpeech": "adjective",
           "definition": "auxiliary adjective used to negate the clause to which the main adjective belongs"
         },
@@ -7727,6 +7859,11 @@
         "알씩"
       ],
       "senses": [
+        {
+          "partOfSpeech": "counter",
+          "definition": "pill, tablet (counter); 알씩 = per pill",
+          "curated": true
+        },
         {
           "partOfSpeech": "noun",
           "definition": "egg, roe"
@@ -7764,6 +7901,19 @@
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0#Korean"
+    },
+    {
+      "id": "ko:알레르기약",
+      "language": "ko",
+      "headword": "알레르기약",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "allergy medicine"
+        }
+      ]
     },
     {
       "id": "ko:약",
@@ -7836,6 +7986,11 @@
         "어디에서나"
       ],
       "senses": [
+        {
+          "partOfSpeech": "pronoun",
+          "definition": "where; 어디에서나 = anywhere",
+          "curated": true
+        },
         {
           "partOfSpeech": "pronoun",
           "definition": "where"
@@ -7934,6 +8089,19 @@
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%97%AC%EB%8D%9F#Korean"
     },
     {
+      "id": "ko:여섯",
+      "language": "ko",
+      "headword": "여섯",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "numeral",
+          "definition": "six"
+        }
+      ]
+    },
+    {
       "id": "ko:연락하다",
       "language": "ko",
       "headword": "연락하다",
@@ -7996,6 +8164,19 @@
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%97%B4#Korean"
+    },
+    {
+      "id": "ko:열한",
+      "language": "ko",
+      "headword": "열한",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "numeral",
+          "definition": "eleven"
+        }
+      ]
     },
     {
       "id": "ko:예약",
@@ -8135,11 +8316,11 @@
       "senses": [
         {
           "partOfSpeech": "verb",
-          "definition": "to help, to serve, to benefit; to honour, to esteem"
+          "definition": "to do for the sake of / for the purpose of"
         },
         {
           "partOfSpeech": "verb",
-          "definition": "to do for the sake of / for the purpose of"
+          "definition": "to help, to serve, to benefit; to honour, to esteem"
         },
         {
           "partOfSpeech": "verb",
@@ -8188,6 +8369,19 @@
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%9D%B4#Korean"
+    },
+    {
+      "id": "ko:이 주",
+      "language": "ko",
+      "headword": "이 주",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun phrase",
+          "definition": "two weeks"
+        }
+      ]
     },
     {
       "id": "ko:이용하다",
@@ -8245,6 +8439,10 @@
       "forms": [],
       "senses": [
         {
+          "partOfSpeech": "numeral",
+          "definition": "one"
+        },
+        {
           "partOfSpeech": "noun",
           "definition": "work"
         },
@@ -8262,10 +8460,6 @@
         },
         {
           "partOfSpeech": "numeral",
-          "definition": "one"
-        },
-        {
-          "partOfSpeech": "numeral",
           "definition": "first"
         },
         {
@@ -8278,6 +8472,19 @@
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%9D%BC#Korean"
+    },
+    {
+      "id": "ko:일곱",
+      "language": "ko",
+      "headword": "일곱",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "numeral",
+          "definition": "seven"
+        }
+      ]
     },
     {
       "id": "ko:일주일",
@@ -8349,6 +8556,10 @@
       ],
       "senses": [
         {
+          "partOfSpeech": "adjective",
+          "definition": "to be (in a place); to exist"
+        },
+        {
           "partOfSpeech": "verb",
           "definition": "to stay, remain in a location"
         },
@@ -8375,10 +8586,6 @@
         {
           "partOfSpeech": "verb",
           "definition": "to maintain in the result of"
-        },
-        {
-          "partOfSpeech": "adjective",
-          "definition": "to be (in a place); to exist"
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%9E%88%EB%8B%A4#Korean"
@@ -8511,7 +8718,7 @@
       "senses": [
         {
           "partOfSpeech": "noun",
-          "definition": "lunch, luncheon .mw-parser-output .defdate{font-size:smaller}"
+          "definition": "lunch, luncheon"
         },
         {
           "partOfSpeech": "noun",
@@ -8546,6 +8753,21 @@
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%A0%95%ED%95%98%EB%8B%A4#Korean"
+    },
+    {
+      "id": "ko:제공되다",
+      "language": "ko",
+      "headword": "제공되다",
+      "forms": [
+        "제공됩니다"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "verb",
+          "definition": "to be provided, to be served"
+        }
+      ]
     },
     {
       "id": "ko:제시하다",
@@ -8697,6 +8919,11 @@
       "senses": [
         {
           "partOfSpeech": "verb",
+          "definition": "(after a verb) to do for someone; 주세요 = please",
+          "curated": true
+        },
+        {
+          "partOfSpeech": "verb",
           "definition": "to give"
         },
         {
@@ -8767,6 +8994,11 @@
         "중에는"
       ],
       "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "during, while",
+          "curated": true
+        },
         {
           "partOfSpeech": "noun",
           "definition": "average; intermediate (grade or class)"
@@ -8856,16 +9088,16 @@
       "forms": [],
       "senses": [
         {
+          "partOfSpeech": "adverb",
+          "definition": "on one's own, by oneself"
+        },
+        {
           "partOfSpeech": "noun",
           "definition": "immediateness; directness"
         },
         {
           "partOfSpeech": "adverb",
           "definition": "directly"
-        },
-        {
-          "partOfSpeech": "adverb",
-          "definition": "on one's own, by oneself"
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%A7%81%EC%A0%91#Korean"
@@ -8876,6 +9108,11 @@
       "headword": "짐",
       "forms": [],
       "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "luggage, baggage",
+          "curated": true
+        },
         {
           "partOfSpeech": "noun",
           "definition": "load, burden"
@@ -8905,6 +9142,10 @@
       "senses": [
         {
           "partOfSpeech": "verb",
+          "definition": "to visit"
+        },
+        {
+          "partOfSpeech": "verb",
           "definition": "to search, to look for"
         },
         {
@@ -8913,14 +9154,41 @@
         },
         {
           "partOfSpeech": "verb",
-          "definition": "to visit"
-        },
-        {
-          "partOfSpeech": "verb",
           "definition": "to withdraw"
         }
       ],
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%B0%BE%EB%8B%A4#Korean"
+    },
+    {
+      "id": "ko:체크아웃",
+      "language": "ko",
+      "headword": "체크아웃",
+      "forms": [
+        "체크아웃은"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "check-out"
+        }
+      ]
+    },
+    {
+      "id": "ko:체크인",
+      "language": "ko",
+      "headword": "체크인",
+      "forms": [
+        "체크인은",
+        "체크인하실"
+      ],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "check-in; to check in"
+        }
+      ]
     },
     {
       "id": "ko:충분히",
@@ -8974,6 +9242,19 @@
       "sourceUrl": "https://en.wiktionary.org/wiki/%EC%BD%A7%EB%AC%BC#Korean"
     },
     {
+      "id": "ko:페니실린",
+      "language": "ko",
+      "headword": "페니실린",
+      "forms": [],
+      "curated": true,
+      "senses": [
+        {
+          "partOfSpeech": "noun",
+          "definition": "penicillin"
+        }
+      ]
+    },
+    {
       "id": "ko:프런트",
       "language": "ko",
       "headword": "프런트",
@@ -9002,6 +9283,11 @@
         "피하세요"
       ],
       "senses": [
+        {
+          "partOfSpeech": "verb",
+          "definition": "to avoid",
+          "curated": true
+        },
         {
           "partOfSpeech": "verb",
           "definition": "to evade"
@@ -9038,6 +9324,11 @@
         "해"
       ],
       "senses": [
+        {
+          "partOfSpeech": "verb",
+          "definition": "to do",
+          "curated": true
+        },
         {
           "partOfSpeech": "verb",
           "definition": "to do; used to vaguely refer to almost any action, in particular:"

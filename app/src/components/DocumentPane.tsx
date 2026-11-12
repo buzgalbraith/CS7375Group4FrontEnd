@@ -37,7 +37,8 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
   const boxes = image ? stimulus.sourceBoxes : undefined;
   const { alignment, qe, heatmap } = stimulus.explanations;
   const links = useMemo(() => alignment ?? [], [alignment]);
-  // Dictionary entries remain available in Word matching while alignment data is pending.
+  // Overlays only apply once that explanation exists (null = still pending). The Word glossary always works:
+  // Korean words get their meaning from the bundled dictionary even without word-matching data.
   const showAlign = overlay === 'alignment';
   const showQE = overlay === 'qe' && qe !== null;
   const showHeat = overlay === 'heatmap' && heatmap !== null;
@@ -102,7 +103,8 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
     const hit = matchingLinks(links, next);
     const previous = matchingLinks(links, lastHovered.current);
     const changed = hit.length !== previous.length || hit.some((l, k) => l !== previous[k]);
-    if (hit.length && changed) onAlignmentHover?.();
+    const newKoreanWord = side === 'src' && (lastHovered.current?.side !== 'src' || lastHovered.current.index !== index);
+    if ((hit.length && changed) || newKoreanWord) onAlignmentHover?.();
     lastHovered.current = next;
     setHovered(next);
   };
@@ -209,7 +211,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
         <h3>
           Machine translation <span className="muted">(English)</span>
         </h3>
-        {showAlign && <p className="word-match-hint small">Hover over a boxed word on the image to see its translation, or over an English word to find it on the image.</p>}
+        {showAlign && <p className="word-match-hint small">Hover over a Korean word on the image to see its English translation.</p>}
         <p className="doc-text target" lang="en">
           {stimulus.targetTokens.map((t, i) => {
             const span = showQE ? qe!.spans.find((s) => containsToken(i, s.tgt)) : undefined;
@@ -232,7 +234,8 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
             return (
               <Fragment key={i}>
                 {tgtBreaks.has(i) && <span className="para-break" />}
-                {renderToken('tgt', i, t, cls.join(' '), title)}{' '}
+                {/* English words are plain text: only Korean words can be hovered or clicked. */}
+                <span className={cls.join(' ')} title={title}>{t}</span>{' '}
               </Fragment>
             );
           })}
@@ -249,9 +252,6 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
             onMouseLeave={scheduleHoverClose}
             onFocus={() => { cancelHoverClose(); setPinned(selection); }}
           />
-        )}
-        {overlay === 'alignment' && alignment === null && (
-          <p className="word-match-hint muted small">Source matches are not available for this notice yet. Hover or focus on a word in either language to read its dictionary entry.</p>
         )}
       </section>
     </div>

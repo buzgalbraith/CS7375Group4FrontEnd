@@ -7,8 +7,11 @@ export interface DictionaryEntry {
   headword: string;
   /** Explicit surface forms; Korean endings are never guessed at runtime. */
   forms: string[];
-  senses: { partOfSpeech: string; definition: string }[];
-  sourceUrl: string;
+  /** `curated`: written by the study team rather than taken from Wiktionary (an entry's or a single sense's). */
+  senses: { partOfSpeech: string; definition: string; curated?: boolean }[];
+  /** Wiktionary page; absent for curated entries. */
+  sourceUrl?: string;
+  curated?: boolean;
 }
 export interface DictionaryFile {
   about: string;
@@ -112,7 +115,8 @@ export function validateDictionary(file: DictionaryFile): string[] {
     if (!entry.senses.length || entry.senses.some((sense) => !sense.partOfSpeech.trim() || !sense.definition.trim() || /<\/?[a-z][^>]*>/i.test(sense.definition)))
       errors.push(`${where}: expected plain-text definitions with parts of speech`);
     const expectedUrl = `https://en.wiktionary.org/wiki/${encodeURIComponent(entry.headword.replaceAll(' ', '_'))}#${entry.language === 'ko' ? 'Korean' : 'English'}`;
-    if (entry.sourceUrl !== expectedUrl) errors.push(`${where}: source URL must point to this headword and language`);
+    if (entry.curated ? entry.sourceUrl !== undefined : entry.sourceUrl !== expectedUrl)
+      errors.push(`${where}: ${entry.curated ? 'curated entries have no source URL' : 'source URL must point to this headword and language'}`);
     for (const form of [entry.headword, ...entry.forms]) {
       const normalized = form.split(/\s+/).map(normalizeDictionaryWord).join(' ');
       const key = `${entry.language}:${normalized}`;

@@ -9,7 +9,7 @@ const TUTORIAL_HINTS: Record<ExplanationType, string> = {
   rationale: 'This is a written explanation, produced by an AI model, of how well the translation matches the original.',
   qe: 'Parts of the translation are colored by how likely they are to contain an error. Hover over colored text to see details.',
   alignment:
-    'Hover over a boxed Korean word on the notice image to see its English translation, or hover over an English word to outline its Korean on the image. Click or tap to keep it selected. A dashed underline in the translation means no match is available. The popup also gives dictionary meanings, in English, for the Korean and English words.',
+    'Hover over a Korean word on the notice image to see its English translation.',
 };
 
 interface Props {
@@ -21,12 +21,11 @@ interface Props {
 export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
   const ex = stimulus.explanations;
 
-  if (ex[type] === null)
+  // The Word glossary works from the bundled dictionary, so it's never "pending".
+  if (ex[type] === null && type !== 'alignment')
     return (
       <div className="explanation">
-        <p className="pending">{type === 'alignment'
-          ? 'Source-word matching has not been generated for this document yet. Hover or focus on either text above to read dictionary entries.'
-          : "⏳ This explanation hasn't been generated for this document yet."}</p>
+        <p className="pending">⏳ This explanation hasn't been generated for this document yet.</p>
       </div>
     );
 
@@ -92,16 +91,11 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
       {type === 'alignment' && (
         <div>
           <h4>{EXPLANATION_NAMES.alignment}</h4>
-          <p>
-            Hover over a boxed Korean word on the notice image to see its English translation, or over an English
-            word to outline the matching Korean on the image. Click or tap to keep it selected; press Escape or
-            click elsewhere to clear it. The popup also gives
-            dictionary meanings, in English, for the Korean and English words.
-          </p>
-          <p className="legend">
+          <p>Hover over a Korean word on the notice image to see its English translation.</p>
+          {ex.alignment && <p className="legend">
             <span className="tok hot">highlighted</span> = matching words (outlined on the image) ·{' '}
             <span className="tok unaligned">dashed</span> = no source match available
-          </p>
+          </p>}
         </div>
       )}
     </div>
