@@ -26,9 +26,31 @@ interface Props {
   onSubmit: (a: SurveyAnswers) => void;
 }
 
+const OTHER = 'Other';
+
 export function Survey({ title, intro, questions, submitLabel = 'Continue', onSubmit }: Props) {
   const [a, setA] = useState<SurveyAnswers>({});
   const set = (id: string, v: SurveyAnswers[string]) => setA((prev) => ({ ...prev, [id]: v }));
+  /** Picking "Other" opens a text box; its text is stored as `<question id>_other`. Unpicking it clears the text. */
+  const pickedOther = (v: SurveyAnswers[string]) => (Array.isArray(v) ? v.includes(OTHER) : v === OTHER);
+  const setChoice = (id: string, v: SurveyAnswers[string]) =>
+    setA((prev) => {
+      const next = { ...prev, [id]: v };
+      if (!pickedOther(v)) delete next[`${id}_other`];
+      return next;
+    });
+  const otherBox = (q: Question) =>
+    (q.type === 'choice' || q.type === 'multi') && pickedOther(a[q.id]) && (
+      <input
+        type="text"
+        className="other-text"
+        aria-label="Please describe"
+        placeholder="Please describe"
+        autoFocus
+        value={(a[`${q.id}_other`] as string) ?? ''}
+        onChange={(e) => set(`${q.id}_other`, e.target.value)}
+      />
+    );
 
   const answered = (q: Question) => {
     if (q.optional) return true;
@@ -58,7 +80,7 @@ export function Survey({ title, intro, questions, submitLabel = 'Continue', onSu
             <div className="options">
               {q.options.map((o) => (
                 <label key={o}>
-                  <input type="radio" name={q.id} checked={a[q.id] === o} onChange={() => set(q.id, o)} /> {o}
+                  <input type="radio" name={q.id} checked={a[q.id] === o} onChange={() => setChoice(q.id, o)} /> {o}
                 </label>
               ))}
             </div>
@@ -72,7 +94,7 @@ export function Survey({ title, intro, questions, submitLabel = 'Continue', onSu
                     <input
                       type="checkbox"
                       checked={cur.includes(o)}
-                      onChange={(e) => set(q.id, e.target.checked ? [...cur, o] : cur.filter((x) => x !== o))}
+                      onChange={(e) => setChoice(q.id, e.target.checked ? [...cur, o] : cur.filter((x) => x !== o))}
                     />{' '}
                     {o}
                   </label>
@@ -80,6 +102,7 @@ export function Survey({ title, intro, questions, submitLabel = 'Continue', onSu
               })}
             </div>
           )}
+          {otherBox(q)}
           {q.type === 'matrix' && <Matrix q={q} answers={a} set={set} />}
           {q.type === 'likert' && (
             <div className="likert">
