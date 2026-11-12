@@ -37,8 +37,8 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
   const boxes = image ? stimulus.sourceBoxes : undefined;
   const { alignment, qe, heatmap } = stimulus.explanations;
   const links = useMemo(() => alignment ?? [], [alignment]);
-  // Overlays only apply once that explanation exists (null = still pending).
-  const showAlign = overlay === 'alignment' && alignment !== null;
+  // Dictionary entries remain available in Word matching while alignment data is pending.
+  const showAlign = overlay === 'alignment';
   const showQE = overlay === 'qe' && qe !== null;
   const showHeat = overlay === 'heatmap' && heatmap !== null;
   const selection = showAlign ? pinned ?? hovered ?? focused : null;
@@ -220,7 +220,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
             if (heatCls) cls.push(`heat-${heatCls}`);
             if (showAlign) {
               if (isHot('tgt', i)) cls.push('hot');
-              if (!aligned.has(i)) cls.push('unaligned');
+              if (alignment !== null && !aligned.has(i)) cls.push('unaligned');
             }
             const title = span
               ? `Estimated quality: ${Math.round(span.score * 100)}/100${span.note ? ` — ${span.note}` : ''}`
@@ -251,7 +251,7 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
           />
         )}
         {overlay === 'alignment' && alignment === null && (
-          <p className="word-match-hint muted small">Source matches are not available for this notice yet.</p>
+          <p className="word-match-hint muted small">Source matches are not available for this notice yet. Hover or focus on a word in either language to read its dictionary entry.</p>
         )}
       </section>
     </div>

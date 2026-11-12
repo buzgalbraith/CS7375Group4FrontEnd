@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { AlignLink, Stimulus, TokenRange } from '../types';
+import { DictionaryEntries } from './DictionaryEntries';
 
 export interface WordSelection {
   side: 'src' | 'tgt';
@@ -122,16 +123,25 @@ export function SourceMatch({ id, stimulus, selection, links, pinned, onClear, o
           <button type="button" className="glossary-close" aria-label="Close" onClick={onClear}>×</button>
         )}
         <div id={`${id}-content`} role="status" aria-live="polite" aria-atomic="true">
-          {uniqueLinks.length === 0 ? (
-            <p className="muted">No translation available</p>
+          {stimulus.explanations.alignment === null ? (
+            <p className="glossary-line muted">Word matches not available yet</p>
+          ) : uniqueLinks.length === 0 ? (
+            <p className="glossary-line muted">No translation available</p>
           ) : (
             // Just the English the word is linked to; one line per link.
             uniqueLinks.map((link) => (
-              <p key={`${link.src.join('-')}:${link.tgt.join('-')}`} className="source-match-translation" lang="en">
+              <p key={`${link.src.join('-')}:${link.tgt.join('-')}`} className="glossary-line source-match-translation" lang="en">
                 {stimulus.targetTokens.slice(...link.tgt).join(' ')}
               </p>
             ))
           )}
+          <DictionaryEntries
+            key={`${selection.side}:${selection.index}`}
+            stimulus={stimulus}
+            side={selection.side}
+            tokenIndex={selection.index}
+            links={links}
+          />
         </div>
       </div>
     </div>,

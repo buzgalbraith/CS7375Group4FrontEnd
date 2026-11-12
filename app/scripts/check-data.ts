@@ -12,10 +12,14 @@ import {
   type RawNoticesFile,
 } from '../src/data/buildStimuli.ts';
 import { MAIN_SET, assignVersions } from '../src/data/studyConfig.ts';
+import { validateDictionary, type DictionaryFile } from '../src/lib/dictionary.ts';
 
 const dir = join(dirname(fileURLToPath(import.meta.url)), '..', 'translation-experiment-data');
 const errors: string[] = [];
 const warnings: string[] = [];
+const dictionary: DictionaryFile = JSON.parse(readFileSync(join(dir, 'dictionary.json'), 'utf8'));
+errors.push(...validateDictionary(dictionary));
+console.log(`Dictionary: ${dictionary.entries.filter((e) => e.language === 'en').length} English and ${dictionary.entries.filter((e) => e.language === 'ko').length} Korean headwords (definitions in English).\n`);
 
 const notices: RawNoticesFile = JSON.parse(readFileSync(join(dir, 'notices.json'), 'utf8'));
 const explanations: RawExplanationsFile = existsSync(join(dir, 'explanations.json'))

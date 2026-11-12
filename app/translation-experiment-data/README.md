@@ -6,6 +6,7 @@ so editing them (and pushing) is all it takes to change the study.
 ```
 translation-experiment-data/
 ├── notices.json        Korean notices, correct + flawed English, scenario, comprehension question  (Eric)
+├── dictionary.json     Offline English definitions of English and Korean headwords, plus explicit forms
 ├── explanations.json   precomputed explanations per notice and translation version (optional while  (Kuan)
 │                       not yet generated: everything shows as "pending")
 ├── image-boxes.json    where each Korean word sits in its image, for the Word glossary (generated; don't edit)
@@ -122,3 +123,29 @@ generated for this document yet." English words not covered by any alignment lin
 
 If a pipeline produces token or character offsets, converting them to phrases is a one-liner:
 `text[start:end]`.
+
+## dictionary.json
+
+Dictionary entries appear only in the Word matching glossary. The snapshot contains definitions in
+English for both `en` and `ko` headwords, along with explicit surface forms (for example, `towels` →
+`towel`, `무료입니다` → `무료`). These mappings identify dictionary headwords; they do **not** create
+translation alignments or decide whether a translation is correct. Missing entries remain explicit.
+Dictionary lookup stays available in Word matching even when alignment data is pending; counterpart
+definitions require supplied links and are never inferred from dictionary meanings.
+
+Each entry has an `id`, `language`, `headword`, `forms`, `senses` (each with `partOfSpeech` and
+`definition`), and `sourceUrl`. Punctuation is ignored at token edges; multiword entries prefer the
+longest exact match without crossing paragraphs or linked spans. No generic Korean suffix stripping
+or live dictionary lookups are used. Add exact forms to the entry when adding new notice text.
+
+Definitions are extracted from [English Wiktionary](https://en.wiktionary.org/), attributed to
+**Wiktionary contributors**, and licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Each entry links to its original headword/language page (and that page's contributor history).
+The snapshot removes HTML and examples and keeps up to eight senses within 160 words per headword;
+the common no-cost sense of “free”, request adverb “please”, and state sense of “be” are listed first. Inflection aliases
+are locally curated. This license applies to the dictionary content; it does not relicense app code.
+Keep the attribution, license, retrieval date, and source links with any redistributed dictionary content.
+
+Run `npm run check-data` after editing definitions or forms, and `npm run test:dictionary` after changing
+lookup behavior. Definitions are bundled at build time so every participant using a build sees the
+same text and the glossary continues to work offline.

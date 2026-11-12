@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "check-data": "node scripts/check-data.ts"
+    "check-data": "node scripts/check-data.ts",
+    "test:dictionary": "node --test scripts/dictionary.test.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
