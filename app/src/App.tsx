@@ -143,7 +143,9 @@ export default function App() {
           questions={postSurveyFor(order)}
           submitLabel="Submit"
           onSubmit={(post) => {
-            const final = { ...session, post, completedAt: Date.now() };
+            const completedAt = Date.now();
+            const durationMs = completedAt - (session.consent ?? session.startedAt);
+            const final = { ...session, post, completedAt, durationMs };
             record('post_survey', post);
             record('session_complete', final);
             setSession(final);

@@ -19,7 +19,7 @@
         "correct_span": "after breakfast, lunch, and dinner for two weeks",
         "flawed_span": "after breakfast, lunch, and dinner for one week"
       },
-      "scenario": "A clinic in Busan prescribed this for an infection. You start it on a Monday and feel better by Friday.",
+      "scenario": "You're on a two-week trip in Busan when you come down with a painful throat infection. A small clinic near your guesthouse prescribes this medicine, and the pharmacy next door hands you this sheet with it. You start taking it on a Monday, and by Friday you feel much better. You don't have a Korean phone number, the clinic's phone line has a long queue and few English-speaking staff, and the trip back there would take up most of a day.",
       "check_cost": "Getting it checked means calling the clinic, which has a long phone queue and few English-speaking staff.",
       "key_question": {
         "question": "Based on everything you've seen, should you still be taking it on the following Wednesday?",
@@ -45,7 +45,7 @@
         "correct_span": "do not drink alcohol or take sleeping pills or cold medicines with it.",
         "flawed_span": "do not drink alcohol or take sleeping pills with it."
       },
-      "scenario": "You have hay fever and picked this up at a pharmacy. You've also caught a cold and bought cold medicine at a convenience store.",
+      "scenario": "It's spring in Seoul and your hay fever has flared up badly, with constant sneezing and itchy eyes. You picked up this medicine at a pharmacy across town, getting by with gestures at the counter. Since then you've also caught a cold, so on the way back to your hotel you bought cold medicine at a convenience store. It's evening and you're exhausted. The pharmacy is a long subway ride away and closes soon, and your phone's mobile data has run out.",
       "check_cost": "Getting it checked means going back to the pharmacy across town before it closes.",
       "key_question": {
         "question": "Based on everything you've seen, should you avoid taking the cold medicine together with this one?",
@@ -71,7 +71,7 @@
         "correct_span": "Even if you have booked in advance, you cannot check in without showing identification.",
         "flawed_span": "If you have booked in advance, you can check in without showing identification."
       },
-      "scenario": "You booked this guesthouse online weeks ago. When you arrive, you realize your passport and ID are in a bag you left at a friend's place.",
+      "scenario": "After a long day of travel, you arrive in Gyeongju in the evening at a small guesthouse you booked and paid for online weeks ago. At the door you realize your passport and ID are in a bag you left at a friend's apartment in Seoul, two hours away by train. Nobody is at the front desk, just this notice on the wall. You don't have a Korean phone number, and the owner may not pick up this late in the day.",
       "check_cost": "Getting it checked means calling the guesthouse owner late at night, who may not pick up.",
       "key_question": {
         "question": "Based on everything you've seen, can you check in without ID?",
@@ -97,7 +97,7 @@
         "correct_span": "Each room can accommodate only two guests.",
         "flawed_span": "Each room can accommodate two guests, or three if one is a child."
       },
-      "scenario": "You are booking one room at this hotel for yourself, your partner, and your seven-year-old child.",
+      "scenario": "You're planning a weekend in Jeju with your partner and your seven-year-old child. This hotel is close to the beach and within your budget, and the booking site shows only a couple of rooms left at this price. You want to book one room for all three of you, and the only room information the listing gives is this notice. Emailing the hotel would mean waiting about a day for a reply, and the rooms may be gone by then.",
       "check_cost": "Getting it checked means emailing the hotel and waiting a day for a reply, while the last rooms at this price sell out.",
       "key_question": {
         "question": "Based on everything you've seen, can all three of you stay in one room?",

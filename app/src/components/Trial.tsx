@@ -70,6 +70,19 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
   const [hovers, setHovers] = useState(0);
 
   const [startedAt] = useState(() => Date.now());
+  const stepMs = useRef<Record<Step, number>>({ baseline: 0, reveal: 0, question: 0, rank: 0 });
+  const stepStartedAt = useRef(startedAt);
+  /** Add the time since the current step began to its total; returns the time used as "now". */
+  const closeStepTimer = () => {
+    const now = Date.now();
+    stepMs.current[step] += now - stepStartedAt.current;
+    stepStartedAt.current = now;
+    return now;
+  };
+  const goTo = (next: Step) => {
+    closeStepTimer();
+    setStep(next);
+  };
   const tabMs = useRef<Record<string, number>>(Object.fromEntries(order.map((t) => [t, 0])));
   const tabOpenedAt = useRef<number | null>(null);
 
@@ -111,6 +124,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
 
   const finish = () => {
     closeTabTimer();
+    const completedAt = closeStepTimer();
     const rankRecords: Record<string, RankingRecord> = {};
     for (const d of RANK_DIMENSIONS) {
       const ord = rankings[d.id];
@@ -139,7 +153,9 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
       alignmentHovers: hovers,
       originalViews: [...views.current],
       startedAt,
-      completedAt: Date.now(),
+      completedAt,
+      durationMs: completedAt - startedAt,
+      stepMs: { ...stepMs.current },
     });
   };
 
@@ -216,7 +232,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
           ready={baselineComprehension !== null}
           onSubmit={(r) => {
             setBaseline(r);
-            setStep('reveal');
+            goTo('reveal');
           }}
         >
           <ComprehensionQuestion
@@ -236,7 +252,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
           disabledReason={`Please open every explanation first (${viewed.size}/${order.length} viewed).`}
           onSubmit={(r) => {
             setRevised(r);
-            setStep('question');
+            goTo('question');
           }}
         />
       )}
@@ -248,7 +264,7 @@ export function Trial({ stimulus, order, hints, progress, onComplete }: Props) {
           name="comprehension"
           onSubmit={(r) => {
             setComprehension(r);
-            setStep('rank');
+            goTo('rank');
           }}
         />
       )}

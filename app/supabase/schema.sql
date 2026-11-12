@@ -56,7 +56,16 @@ select
   min(payload->>'email') filter (where kind = 'session_start') as email,
   -- answered anything but 'Not at all' to "How well can you read Korean?"; the app ends those sessions there
   bool_or(kind = 'pre_survey' and payload->>'korean_proficiency' is distinct from 'Not at all')
-    filter (where kind = 'pre_survey')                  as screened_out
+    filter (where kind = 'pre_survey')                  as screened_out,
+  -- overall time from consent to submitting the exit survey, in ms (null until completed; older sessions
+  -- without durationMs fall back to their recorded timestamps)
+  max(coalesce((payload->>'durationMs')::bigint,
+               (payload->>'completedAt')::bigint - coalesce((payload->>'consent')::bigint, (payload->>'startedAt')::bigint)))
+    filter (where kind = 'session_complete')            as duration_ms,
+  -- total time spent on the notices themselves, in ms (also counts dropouts' finished notices)
+  sum(coalesce((payload->>'durationMs')::bigint,
+               (payload->>'completedAt')::bigint - (payload->>'startedAt')::bigint))
+    filter (where kind = 'trial')                       as trials_ms
 from public.study_events
 group by session_id;
 
@@ -99,7 +108,15 @@ select
   -- single 6-point scale (1-3 get it checked, 4-6 rely); decision/confidence above are derived from it, and
   -- confidence is then 1-3 (distance toward that end) rather than the earlier 1-7 rating. Null for earlier sessions.
   (e.payload->'baseline'->>'scale')::int                 as baseline_scale,
-  (e.payload->'revised'->>'scale')::int                  as revised_scale
+  (e.payload->'revised'->>'scale')::int                  as revised_scale,
+  -- time on the notice, in ms (older sessions fall back to completedAt - startedAt)
+  coalesce((e.payload->>'durationMs')::bigint,
+           (e.payload->>'completedAt')::bigint - (e.payload->>'startedAt')::bigint) as duration_ms,
+  -- time on each step, in ms; they sum to duration_ms. Null for sessions before step timing was added.
+  (e.payload->'stepMs'->>'baseline')::bigint             as baseline_ms,  -- first impression
+  (e.payload->'stepMs'->>'reveal')::bigint               as reveal_ms,    -- explanations + revised decision
+  (e.payload->'stepMs'->>'question')::bigint             as question_ms,  -- key question after explanations
+  (e.payload->'stepMs'->>'rank')::bigint                 as rank_ms       -- rankings + justifications
 from public.study_events e
 left join public.study_events s on s.session_id = e.session_id and s.kind = 'session_start'
 where e.kind = 'trial';

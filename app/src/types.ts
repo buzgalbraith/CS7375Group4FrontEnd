@@ -149,6 +149,10 @@ export interface TrialResult {
   originalViews: OriginalViewRecord[];
   startedAt: number;
   completedAt: number;
+  /** completedAt − startedAt: time on the whole notice, in ms. */
+  durationMs: number;
+  /** Time spent on each step of the notice, in ms (sums to durationMs). */
+  stepMs: Record<TrialStep, number>;
 }
 
 export type SurveyAnswers = Record<string, string | number | string[]>;
@@ -170,4 +174,6 @@ export interface SessionRecord {
   trials: TrialResult[];
   post?: SurveyAnswers;
   completedAt?: number;
+  /** Overall time from consent to submitting the exit survey, in ms. */
+  durationMs?: number;
 }
