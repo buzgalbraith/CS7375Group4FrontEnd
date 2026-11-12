@@ -50,12 +50,15 @@ select
   max(client_ts) filter (where kind = 'session_complete') as completed_at,
   count(*) filter (where kind = 'trial' and not coalesce((payload->>'tutorial')::boolean, false)) as trials_done,
   bool_or(kind = 'session_complete')                    as completed,
-  -- 'moderated' | 'remote' | 'online' (from ?mode=; sessions before this field existed show null)
+  -- 'moderated' | 'remote' | 'async' (from ?mode=; 'online' = self-serve before 'async' existed; null = before
+  -- this field). moderated/remote sessions do the pre- and post-surveys as live interviews.
   min(payload->>'mode') filter (where kind = 'session_start') as mode,
   -- given on the welcome page; the pid is derived from it unless the link sets ?pid= (null for older sessions)
   min(payload->>'email') filter (where kind = 'session_start') as email,
-  -- answered anything but 'Not at all' to "How well can you read Korean?"; the app ends those sessions there
-  bool_or(kind = 'pre_survey' and payload->>'korean_proficiency' is distinct from 'Not at all')
+  -- answered anything but 'Not at all' to "How well can you read Korean?" (or, in an interview, the researcher
+  -- ended the session as not eligible); the app ends those sessions there
+  bool_or(case when payload->>'format' = 'interview' then payload->>'eligible' is not distinct from 'no'
+               else payload->>'korean_proficiency' is distinct from 'Not at all' end)
     filter (where kind = 'pre_survey')                  as screened_out,
   -- overall time from consent to submitting the exit survey, in ms (null until completed; older sessions
   -- without durationMs fall back to their recorded timestamps)
@@ -65,7 +68,10 @@ select
   -- total time spent on the notices themselves, in ms (also counts dropouts' finished notices)
   sum(coalesce((payload->>'durationMs')::bigint,
                (payload->>'completedAt')::bigint - (payload->>'startedAt')::bigint))
-    filter (where kind = 'trial')                       as trials_ms
+    filter (where kind = 'trial')                       as trials_ms,
+  -- length of the live pre- / post-interview screens, in ms (null for survey sessions)
+  max((payload->>'durationMs')::bigint) filter (where kind = 'pre_survey' and payload->>'format' = 'interview')  as pre_interview_ms,
+  max((payload->>'durationMs')::bigint) filter (where kind = 'post_survey' and payload->>'format' = 'interview') as post_interview_ms
 from public.study_events
 group by session_id;
 

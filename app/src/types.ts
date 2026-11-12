@@ -157,8 +157,10 @@ export interface TrialResult {
 
 export type SurveyAnswers = Record<string, string | number | string[]>;
 
-/** How the session was run: researcher present in person, over video call, or self-serve link. */
-export type SessionMode = 'moderated' | 'remote' | 'online';
+/** How the session was run: researcher present in person, over video call (both: the pre- and post-surveys are
+ *  live interviews), or a self-serve link with the surveys on screen. Sessions before `async` existed saved the
+ *  self-serve mode as 'online'. */
+export type SessionMode = 'moderated' | 'remote' | 'async';
 
 export interface SessionRecord {
   sessionId: string;

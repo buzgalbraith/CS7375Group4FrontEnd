@@ -52,13 +52,18 @@ function hash(s: string): number {
 
 export const params = new URLSearchParams(window.location.search);
 
-const MODES: SessionMode[] = ['moderated', 'remote', 'online'];
+const MODES: SessionMode[] = ['moderated', 'remote', 'async'];
 
-/** `?mode=moderated|remote|online`; anything else (or missing) counts as a self-serve online session. */
+/** `?mode=moderated|remote|async`. Missing or unknown means a researcher-run session over Zoom (`remote`);
+ *  the old `online` (self-serve) means `async`. */
 export function parseMode(value: string | null): SessionMode {
-  const m = value?.toLowerCase() as SessionMode | undefined;
-  return m && MODES.includes(m) ? m : 'online';
+  const m = value?.toLowerCase();
+  if (m === 'online') return 'async';
+  return MODES.includes(m as SessionMode) ? (m as SessionMode) : 'remote';
 }
+
+/** Researcher-run sessions replace the pre- and post-surveys with live interviews. */
+export const usesInterviews = (mode: SessionMode) => mode !== 'async';
 
 const conditionFor = (pid: string) => {
   const condParam = params.get('cond');

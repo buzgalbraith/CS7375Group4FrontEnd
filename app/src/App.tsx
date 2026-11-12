@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { SessionRecord, TrialResult } from './types';
+import type { SessionRecord, SurveyAnswers, TrialResult } from './types';
 import { stimuliForCondition } from './data/study';
 import { ELIGIBLE_KOREAN, preSurvey, postSurveyFor } from './data/surveys';
-import { EXPLANATION_NAMES, downloadJSON, explanationOrder, initSession, isEmail, params, saveLocal, withEmail } from './lib/session';
+import { EXPLANATION_NAMES, downloadJSON, explanationOrder, initSession, isEmail, params, saveLocal, usesInterviews, withEmail } from './lib/session';
 import { flush, recordEvent, useSyncStatus, type EventKind } from './lib/sync';
 import { Trial } from './components/Trial';
 import { Survey } from './components/Survey';
+import { Interview } from './components/Interview';
 
 type Stage = 'welcome' | 'pre' | 'trials' | 'post' | 'done' | 'ineligible';
 const STAGES: Stage[] = ['welcome', 'pre', 'trials', 'post', 'done', 'ineligible'];
@@ -27,6 +28,22 @@ export default function App() {
   useEffect(() => { window.scrollTo({ top: 0 }); }, [stage, trialIdx]);
   // Each step is uploaded as soon as it's finished, so partial sessions (dropouts) are kept.
   const record = (kind: EventKind, payload: unknown) => recordEvent(session, kind, payload);
+  const interviews = usesInterviews(session.mode);
+
+  const finishPre = (pre: SurveyAnswers, eligible: boolean) => {
+    record('pre_survey', pre);
+    setSession((s) => ({ ...s, pre }));
+    setStage(eligible ? 'trials' : 'ineligible');
+  };
+  const finishPost = (post: SurveyAnswers) => {
+    const completedAt = Date.now();
+    const durationMs = completedAt - (session.consent ?? session.startedAt);
+    const final = { ...session, post, completedAt, durationMs };
+    record('post_survey', post);
+    record('session_complete', final);
+    setSession(final);
+    setStage('done');
+  };
 
   const addTrial = (r: TrialResult) => {
     record('trial', r);
@@ -56,8 +73,9 @@ export default function App() {
           </p>
           <p>
             For each notice you'll decide whether you would rely on the translation or get it checked, look at
-            several different explanations of it, answer a question about your situation, and rank the explanations. The study takes
-            about 20 minutes.
+            several different explanations of it, answer a question about your situation, and rank the explanations.
+            {interviews && ' A researcher will also talk with you briefly before and after.'} The study takes about
+            20 minutes{interviews && ', plus the interviews'}.
           </p>
           <p>
             <strong>Please don't use any external translation tools</strong> (such as Google Translate, Papago or
@@ -107,17 +125,23 @@ export default function App() {
         </div>
       )}
 
-      {stage === 'pre' && (
+      {stage === 'pre' && interviews && (
+        // The researcher asks the pre-survey questions (and screens for Korean reading) live.
+        <Interview
+          phase="pre"
+          pid={session.pid}
+          onDone={(pre) => finishPre(pre, true)}
+          onIneligible={(pre) => finishPre(pre, false)}
+        />
+      )}
+
+      {stage === 'pre' && !interviews && (
         <Survey
           title="About you"
           questions={preSurvey}
-          onSubmit={(pre) => {
-            record('pre_survey', pre);
-            setSession((s) => ({ ...s, pre }));
-            // Screening: the study is for people who can't read Korean. The pre-survey answers are kept (above);
-            // nothing else is recorded, and analysis.sessions marks the session as screened out.
-            setStage(pre.korean_proficiency === ELIGIBLE_KOREAN ? 'trials' : 'ineligible');
-          }}
+          // Screening: the study is for people who can't read Korean. The pre-survey answers are kept; nothing
+          // else is recorded, and analysis.sessions marks the session as screened out.
+          onSubmit={(pre) => finishPre(pre, pre.korean_proficiency === ELIGIBLE_KOREAN)}
         />
       )}
 
@@ -136,21 +160,22 @@ export default function App() {
         />
       )}
 
-      {stage === 'post' && (
+      {stage === 'post' && interviews && (
+        <Interview
+          phase="post"
+          pid={session.pid}
+          explanationNames={order.map((t) => EXPLANATION_NAMES[t])}
+          onDone={finishPost}
+        />
+      )}
+
+      {stage === 'post' && !interviews && (
         <Survey
           title="Final questions"
           intro={`The four explanations you saw were: ${order.map((t) => EXPLANATION_NAMES[t]).join(', ')}.`}
           questions={postSurveyFor(order)}
           submitLabel="Submit"
-          onSubmit={(post) => {
-            const completedAt = Date.now();
-            const durationMs = completedAt - (session.consent ?? session.startedAt);
-            const final = { ...session, post, completedAt, durationMs };
-            record('post_survey', post);
-            record('session_complete', final);
-            setSession(final);
-            setStage('done');
-          }}
+          onSubmit={finishPost}
         />
       )}
 

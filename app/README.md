@@ -74,27 +74,22 @@ Run `npm run dev` and open `http://localhost:5173/?preview=alignment` to try the
 This development-only page uses clearly labeled handwritten examples and does not start a participant
 session or upload responses. The controls also show the baseline, missing-mapping, and empty-mapping states.
 
-In the study, the glossary is available **only in the Word matching explanation**. Source tracing uses that
-notice and translation version's `alignment` data in `translation-experiment-data/explanations.json`. Hover or
-keyboard-focus a word in either language to highlight its direct matches. A glossary attached to that word
-shows each exact linked Korean/English token span, the notice title, and the Korean paragraph number.
-The glossary follows its word while scrolling and adjusts above/below it to fit the viewport. Move the
-pointer into it to read longer entries. Click, tap, Enter, or Space pins it; its close button, Escape, or
-clicking outside dismisses it. It is hidden while its word is outside the viewport.
-Unmapped words report that no supplied match is available; they are not automatically judged incorrect.
-The real study mappings are still pending. This interface does not generate or infer them.
+In the study, the glossary is available **only in the Word glossary explanation**. The Korean words on the
+notice image become boxes (positions from `translation-experiment-data/image-boxes.json`). Hovering or
+keyboard-focusing a box opens a small popover with that word's **English meaning**: the first sense of its entry
+in `translation-experiment-data/dictionary.json` (`koreanGloss` in `src/lib/glossary.ts`). Phrase entries (such as
+`이 주` = "two weeks") take precedence over single words. Click, tap, Enter or Space pins the popover; its close
+button, Escape or clicking outside dismisses it. English words are plain text and aren't interactive.
 
-The bubble also includes dictionary entries for the hovered word and its linked text, in **both English
-and Korean, with every definition written in English**. Entries show the headword, part of speech,
-explicit inflected form when applicable, additional expandable meanings, and source attribution.
-Phrase entries (such as “front desk”) take precedence over individual words and cannot cross paragraphs
-or the bounds of an alignment link. Dictionary meanings never create missing source correspondences.
+If a notice has `alignment` links in `explanations.json`, a Korean word with no dictionary entry falls back to the
+English it's linked to, and its linked English words are highlighted; English words with no link get a dashed
+underline. Only `p3_hotel` correct has (three test) links. Without links, a word with no entry shows
+"No translation available".
 
-Definitions are bundled in `translation-experiment-data/dictionary.json` from English Wiktionary,
-attributed to Wiktionary contributors under CC BY-SA 4.0. They work offline and do not request anything
-from a dictionary service during a session. Coverage is limited to the saved headwords and explicit
-surface forms; missing entries are identified in the bubble. `npm run check-data` validates the snapshot;
-`npm run test:dictionary` checks lookup behavior, inflections, phrase boundaries, and missing matches.
-Dictionary entries still work when alignment is pending: hover either language for its own definition.
-The bubble identifies the pending correspondence, and the text is not marked as unmatched until an
-alignment set actually exists.
+Definitions come from English Wiktionary (Wiktionary contributors, CC BY-SA 4.0), bundled so they work offline.
+Because only the first sense is shown, the team **curated** the Korean entries for the study notices: the right
+sense was moved first where Wiktionary had it, and senses or whole entries the team wrote are marked
+`"curated": true` (they have no Wiktionary `sourceUrl`). Every Korean word in the four notices has an entry.
+`npm run check-data` validates the file; `npm run test:dictionary` checks lookup behavior. After changing a
+notice's Korean text, hover-check its words. The fuller `DictionaryEntries` component (all senses, both
+languages) is kept in `src/components/` but isn't shown in the study.

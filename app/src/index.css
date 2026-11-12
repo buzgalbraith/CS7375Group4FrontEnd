@@ -171,6 +171,9 @@ button.word-match-token[aria-pressed=true] { outline: 2px solid var(--accent); o
 .matrix input { margin: 0; cursor: pointer; }
 .options { display: flex; flex-direction: column; gap: 4px; }
 .consent { display: block; margin: 16px 0 4px; }
+.interview-names { margin: 4px 0 12px; }
+.interview-ineligible { margin-top: 20px; }
+button.link { background: none; border: none; padding: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; }
 
 /* Original-document viewer */
 .doc-col-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
