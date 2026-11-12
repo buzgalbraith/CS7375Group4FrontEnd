@@ -1,15 +1,16 @@
 import type { ExplanationType, Stimulus } from '../types';
 import { EXPLANATION_NAMES } from '../lib/session';
-import { heatLevel, qeLevel } from './DocumentPane';
+import { heatLevel, qeDetails, qeLevel } from './DocumentPane';
 
 /** Shown only in the tutorial, to teach how to read each format. Trials show no hints. */
 const TUTORIAL_HINTS: Record<ExplanationType, string> = {
   heatmap:
-    'A translation model read the Korean and the English translation, and the English words it found unexpected are shaded red. Darker red means more unexpected. Hover over shaded words to see details.',
-  rationale: 'This is a written explanation, produced by an AI model, of how well the translation matches the original.',
-  qe: 'Parts of the translation are colored by how likely they are to contain an error. Hover over colored text to see details.',
+    'A second AI read the Korean and then the English, word by word. English words it did not expect to see there are shaded red. The darker the red, the more surprised it was. Hover over a red word to see how confident the AI was in it, as a percentage (100% = completely expected).',
+  rationale:
+    'An AI compared the English with the Korean original and wrote a short note, in plain English, about how well they match.',
+  qe: 'An AI gave the whole translation a score out of 100, where higher means better. It also colored parts of the English: red means probably wrong, yellow means it isn’t sure, and green means probably fine. Hover over colored text to see how serious the possible error is and how sure the AI is.',
   alignment:
-    'Hover over a Korean word on the notice image to see its English translation.',
+    'Hover over a Korean word on the notice image and a small box shows what that word means in English. You can use it to check the translation yourself.',
 };
 
 interface Props {
@@ -80,7 +81,7 @@ export function ExplanationPanel({ type, stimulus, tutorial }: Props) {
                     <span className={`tok qe-${qeLevel(s.score)}`}>
                       “{stimulus.targetTokens.slice(s.tgt[0], s.tgt[1]).join(' ')}”
                     </span>{' '}
-                    {s.note && <span className="muted">{s.note}</span>}
+                    <span className="muted">{qeDetails(s).join(' · ')}</span>
                   </li>
                 ))}
             </ul>

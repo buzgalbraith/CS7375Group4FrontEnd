@@ -1,6 +1,6 @@
 import { Fragment, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
-import type { ExplanationType, Stimulus } from '../types';
+import type { ExplanationType, QESpan, Stimulus } from '../types';
 import { containsToken, matchingLinks, SourceMatch, type WordSelection } from './SourceMatch';
 
 interface Props {
@@ -16,6 +16,27 @@ export function heatLevel(score: number): 'strong' | 'weak' | null {
   if (score < 0.1) return 'strong';
   if (score < 0.5) return 'weak';
   return null;
+}
+
+/** A heatmap score (the model's probability for the word, 0–1) as a percentage; tiny values read "under 1%". */
+export function confidencePercent(score: number): string {
+  const pct = Math.round(score * 100);
+  return pct < 1 ? 'under 1%' : `${pct}%`;
+}
+
+const SEVERITY_TEXT: Record<NonNullable<QESpan['severity']>, string> = {
+  critical: 'Possible critical error: this part may badly change the meaning.',
+  major: 'Possible major error: this part may change the meaning.',
+  minor: 'Possible minor error: probably a small wording problem that doesn’t change the meaning.',
+};
+
+/** Plain-language details for a quality-estimate span, one line each (shown on hover and in the list). */
+export function qeDetails(span: QESpan): string[] {
+  const lines = [span.severity ? SEVERITY_TEXT[span.severity] : span.note ?? `Estimated quality: ${Math.round(span.score * 100)}/100`];
+  if (span.confidence !== undefined)
+    lines.push(`How sure the AI is that this is an error: ${Math.round(span.confidence * 100)}%`);
+  if (span.sentenceScore !== undefined) lines.push(`Quality score for this sentence: ${span.sentenceScore}/100`);
+  return lines;
 }
 
 export function qeLevel(score: number): 'bad' | 'warn' | 'ok' {
@@ -225,11 +246,11 @@ export function DocumentPane({ stimulus, overlay, onAlignmentHover, onViewOrigin
               if (alignment !== null && !aligned.has(i)) cls.push('unaligned');
             }
             const title = span
-              ? `Estimated quality: ${Math.round(span.score * 100)}/100${span.note ? ` — ${span.note}` : ''}`
+              ? qeDetails(span).join('\n')
               : heatCls === 'strong'
-                ? 'Very unexpected given the Korean original'
+                ? `Very unexpected given the Korean original. AI confidence in this word: ${confidencePercent(heat!.score)}`
                 : heatCls === 'weak'
-                  ? 'Somewhat unexpected given the Korean original'
+                  ? `Somewhat unexpected given the Korean original. AI confidence in this word: ${confidencePercent(heat!.score)}`
                   : undefined;
             return (
               <Fragment key={i}>

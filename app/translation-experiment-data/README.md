@@ -99,6 +99,8 @@ translation the participant actually sees.
           "spans": [                        // parts of the English to highlight
             { "text": "for one week.", "score": 0.55, "note": "Duration may not match the source" }
             // score 0–1: < 0.4 shown as "likely error", < 0.7 "uncertain", else "likely fine"
+            // optional, shown on hover: "severity" (minor|major|critical), "confidence" (0–1, how sure
+            // the model is of that tag), "sentence_score" (0–100, the sentence the span is in)
           ]
         },
         "alignment": [                      // Korean phrase ↔ English phrase it corresponds to

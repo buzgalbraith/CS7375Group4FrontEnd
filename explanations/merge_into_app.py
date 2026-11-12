@@ -22,20 +22,41 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ESA = HERE / "esa" / "output.json"
+ESA_RAW = HERE / "esa" / "output_raw.json"
 HEATMAP = HERE / "logprob_heatmap" / "output.json"
 APP_EXPLANATIONS = HERE.parent / "app" / "translation-experiment-data" / "explanations.json"
 VERSIONS = ("correct", "flawed")
 
 
-def qe_from_esa(entry: dict) -> dict:
-    """ESA output is already the app's qe shape; drop the fields the app doesn't use."""
+def sentence_scores(raw: dict) -> dict:
+    """(notice, version, doc_start) of each error span -> the 0-100 score of the sentence it is in."""
+    out = {}
+    for seg in raw.get("segments", []):
+        for m in seg.get("mapped_spans", []):
+            out[(seg["notice"], seg["version"], m["doc_start"])] = round(seg["score"] * 100)
+    return out
+
+
+def esa_span_starts(raw: dict, nid: str, version: str) -> list[int]:
+    """doc_start of each error span of one translation, in document order (the order of output.json spans)."""
+    return [m["doc_start"] for seg in raw.get("segments", []) if seg["notice"] == nid and seg["version"] == version
+            for m in seg.get("mapped_spans", [])]
+
+
+def qe_from_esa(entry: dict, sentence: list[int | None] | None = None) -> dict:
+    """ESA output is already the app's qe shape; keep the fields the app shows on hover."""
     spans = []
-    for s in entry["spans"]:
+    for i, s in enumerate(entry["spans"]):
         span = {"text": s["text"], "score": s["score"]}
         if "occurrence" in s:
             span["occurrence"] = s["occurrence"]
         if s.get("note"):
             span["note"] = s["note"]
+        for key in ("severity", "confidence"):
+            if key in s:
+                span[key] = s[key]
+        if sentence and sentence[i] is not None:
+            span["sentence_score"] = sentence[i]
         spans.append(span)
     return {"score": entry["score"], "spans": spans}
 
@@ -63,6 +84,8 @@ def main() -> None:
 
     esa = json.loads(ESA.read_text(encoding="utf-8"))
     heat = json.loads(HEATMAP.read_text(encoding="utf-8"))
+    raw = json.loads(ESA_RAW.read_text(encoding="utf-8")) if ESA_RAW.exists() else {}
+    by_start = sentence_scores(raw)
     data = json.loads(APP_EXPLANATIONS.read_text(encoding="utf-8")) if APP_EXPLANATIONS.exists() else {
         "about": "Precomputed explanations per notice id and translation version. See README.md in this folder.",
         "explanations": {},
@@ -77,7 +100,10 @@ def main() -> None:
             entry = data["explanations"].setdefault(nid, {}).setdefault(v, {})
             gen = entry.setdefault("_generated", {})
             if v in esa["notices"].get(nid, {}):
-                entry["qe"] = qe_from_esa(esa["notices"][nid][v])
+                qe_entry = esa["notices"][nid][v]
+                starts = esa_span_starts(raw, nid, v)
+                sentence = [by_start.get((nid, v, st)) for st in starts] if len(starts) == len(qe_entry["spans"]) else None
+                entry["qe"] = qe_from_esa(qe_entry, sentence=sentence)
                 gen["qe"] = {"method": "ESA via xCOMET (explanations/esa)", "model": esa_model, "merged": now}
             if v in heat["notices"].get(nid, {}):
                 entry["heatmap"] = heatmap_from_logprob(heat["notices"][nid][v], args.heatmap_score)

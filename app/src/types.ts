@@ -11,6 +11,12 @@ export interface QESpan {
   /** 0 = very likely an error, 1 = very likely fine. */
   score: number;
   note?: string;
+  /** xCOMET's error severity for this span. */
+  severity?: 'minor' | 'major' | 'critical';
+  /** How sure the model is of that severity tag (0–1). */
+  confidence?: number;
+  /** 0–100 quality score of the sentence this span is in. */
+  sentenceScore?: number;
 }
 
 /** One English word in the Confidence estimation heatmap. */

@@ -49,7 +49,16 @@ export interface RawExplanationSet {
   /** Per-word scores (0–1, lower = less expected given the Korean); words not listed are unshaded. */
   heatmap?: { words: (RawPhrase & { score: number })[] };
   rationale?: string;
-  qe?: { score: number; spans: (RawPhrase & { score: number; note?: string })[] };
+  qe?: {
+    score: number;
+    spans: (RawPhrase & {
+      score: number;
+      note?: string;
+      severity?: 'minor' | 'major' | 'critical';
+      confidence?: number;
+      sentence_score?: number;
+    })[];
+  };
   alignment?: { ko: string; en: string; ko_occurrence?: number; en_occurrence?: number }[];
 }
 
@@ -171,7 +180,14 @@ export function buildStimulus(
       const spans: QESpan[] = [];
       for (const s of raw.qe.spans) {
         try {
-          spans.push({ tgt: phraseToRange(tgt, english, s.text, s.occurrence), score: s.score, note: s.note });
+          spans.push({
+            tgt: phraseToRange(tgt, english, s.text, s.occurrence),
+            score: s.score,
+            note: s.note,
+            severity: s.severity,
+            confidence: s.confidence,
+            sentenceScore: s.sentence_score,
+          });
         } catch (e) {
           problems.push(`${where} qe: ${(e as Error).message}`);
         }
